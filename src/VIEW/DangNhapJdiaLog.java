@@ -231,7 +231,7 @@ dangnhap();
 		String matkhau = nv.getMATKHAU();
 		if (pass.equals(matkhau)) {
 		    Auth.user = nv;
-		    JOptionPane.showMessageDialog(this, "Đăng nhập thnành công");
+		    JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
 		    this.dispose();
 		} else {
 		    JOptionPane.showMessageDialog(this, "Sai mật khẩu");

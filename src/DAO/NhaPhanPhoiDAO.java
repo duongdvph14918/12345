@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package DAO;
-import DAO.EduSysDAO;
 import MODEL.NhaPhanPhoi;
 import Utils.hepper;
 import java.sql.ResultSet;
@@ -16,22 +15,23 @@ import java.util.List;
  */
 public class NhaPhanPhoiDAO extends EduSysDAO<NhaPhanPhoi, String>{
 
-    String insert ="INSERT INTO NHAPHANPHOI "
+    String insert_sql ="INSERT INTO NHAPHANPHOI "
             + "(MANHAPHANPHOI,TENNHAPHANPHOI,SODIENTHOAI,EMAIL,DIACHI) VALUES(?,?,?,?,?)";
-    String update = "UPDATE NHAPHANPHOI "
+    String update_sql = "UPDATE NHAPHANPHOI "
             + "SET TENNHAPHANPHOI = ?, SODIENTHOAI = ? , EMAIL = ?, DIACHI = ?, WHERE MANHAPHANPHOI = ?";
-    String delete = "delete from NHAPHANPHOI WHERE MANHAPHANPHOI = ?";
+    String delete_sql = "delete from NHAPHANPHOI WHERE MANHAPHANPHOI = ?";
     String select_all = "Select * from NHAPHANPHOI ";
     String select_byID = "Select * from NHAPHANPHOI WHERE MANHAPHANPHOI = ?";
     @Override
     public void insert(NhaPhanPhoi entity) {
         try {
-            hepper.update(insert, 
+            hepper.update(insert_sql, 
                     entity.getMaNhaphanphoi(),
                     entity.getTenNhaphanphoi(),
                     entity.getSdt(),
                     entity.getEmail(),
-                    entity.getDiaChi());
+                    entity.getDiaChi()
+            );
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -40,25 +40,20 @@ public class NhaPhanPhoiDAO extends EduSysDAO<NhaPhanPhoi, String>{
     @Override
     public void update(NhaPhanPhoi entity) {
         try {
-            hepper.update(update, 
+            hepper.update(update_sql, 
                     entity.getTenNhaphanphoi(),
                     entity.getSdt(),
                     entity.getEmail(),
                     entity.getDiaChi(),
                     entity.getMaNhaphanphoi());
         } catch (Exception e) {
-            e.printStackTrace();
+             throw new RuntimeException();
         }
     }
 
     @Override
     public void delete(String id) {
-        try {
-            hepper.update(delete, 
-                    id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        hepper.update(delete_sql, id);
     }
 
     @Override

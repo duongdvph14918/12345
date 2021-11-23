@@ -7,6 +7,7 @@ package VIEW;
 
 import DAO.NhaPhanPhoiDAO;
 import MODEL.NhaPhanPhoi;
+import Utils.Auth;
 import Utils.DialogHelper;
 import java.sql.Connection;
 import java.util.List;
@@ -24,10 +25,10 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
      */
     NhaPhanPhoiDAO dao = new NhaPhanPhoiDAO();
     int index;
- 
+
     public NhaPhanphoiJInternalFrame() {
         initComponents();
-       filltotable();
+        filltotable();
     }
 
     /**
@@ -82,7 +83,20 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
             new String [] {
                 "Mã loại hàng", "Họ tên", "SĐT", "Địa chỉ", "Email"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblshow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblshowMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblshow);
 
         jLabel2.setText("Mã loại hàng :");
@@ -115,6 +129,11 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
         btnupdate.setText("Cập nhật");
 
         btnxoa.setText("Xóa");
+        btnxoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnxoaActionPerformed(evt);
+            }
+        });
 
         btnnew.setText("Làm mới");
         btnnew.addActionListener(new java.awt.event.ActionListener() {
@@ -211,99 +230,174 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private void filltotable(){ 
-    DefaultTableModel model = (DefaultTableModel) tblshow.getModel();
-    model.setRowCount(0);
-    try {
-        List<NhaPhanPhoi> list = dao.selectAll();
-        for(NhaPhanPhoi npp : list){
-            Object[] row = {
-                npp.getMaNhaphanphoi(),npp.getTenNhaphanphoi(),npp.getSdt(),npp.getDiaChi(),npp.getEmail()
-            };
-            model.addRow(row);
+private void filltotable() {
+        DefaultTableModel model = (DefaultTableModel) tblshow.getModel();
+        model.setRowCount(0);
+        try {
+            List<NhaPhanPhoi> list = dao.selectAll();
+            for (NhaPhanPhoi npp : list) {
+                Object[] row = {
+                    npp.getMaNhaphanphoi(), npp.getTenNhaphanphoi(), npp.getSdt(), npp.getDiaChi(), npp.getEmail()
+                };
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }  
-}
-NhaPhanPhoi getModel(){
-    NhaPhanPhoi npp = new NhaPhanPhoi();
-        npp.setDiaChi(txtdiachi.getText());
-        npp.setEmail(txtemail.getText());
-        npp.setMaNhaphanphoi(txtmaloaihang.getText());
-        npp.setSdt(txthoten.getText());
-        npp.setTenNhaphanphoi(txthoten.getText());
-        
-        return npp;
-}
-private void insert(){
-    NhaPhanPhoi npp = getModel();
-    try {
-        dao.insert(npp);
-        this.filltotable();
-        DialogHelper.alert(this, "Thêm mới thành công !");
-    } catch (Exception e) {
-        e.printStackTrace();
-        DialogHelper.alert(this, "Thêm mới thất bại !");
     }
-}
 
-private boolean check(){
-    if(txtmaloaihang.getText().equals("") || txthoten.getText().equals("") || txtsdt.getText().equals("") || txtdiachi.getText().equals("") || txtemail.getText().equals("") ){
-        JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập đầy đủ thông tin", "Error", 1);
-        return false;
-    }else if(txtmaloaihang.getText().length()<4){
-        JOptionPane.showMessageDialog(rootPane, "Tên mã loại hàng phải lớn hơn 4 ký tự");
-        txtmaloaihang.requestFocus();
-        return false;
-    }else if(txtmaloaihang.getText().matches("[a-zA-Z]+\\\\.?")){
-        JOptionPane.showMessageDialog(rootPane, "Mã loại hàng không hợp lệ");
-        txtmaloaihang.requestFocus();
-        return false;
-    }else  if(txthoten.getText().length()< 10){
-        JOptionPane.showMessageDialog(rootPane, "Tên nhà phân phối phải lớn hơn 10 ký tự");
-        txtmaloaihang.requestFocus();
-        return false;
-    }else if(txtmaloaihang.getText().matches("[a-zA-Z]+\\\\.?")){
-        JOptionPane.showMessageDialog(rootPane, "Tên không hợp lệ");
-        txtmaloaihang.requestFocus();
-        return false;
-   }
-//else if(txtsdt.getText().matches("\"^(0|\\\\+84)(\\\\s|\\\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\\\d)(\\\\s|\\\\.)?(\\\\d{3})(\\\\s|\\\\.)?(\\\\d{3})$")){
-//        JOptionPane.showMessageDialog(rootPane, "Số điện thoại không hợp lệ");
-//        txtmaloaihang.requestFocus();
-//        return false;
+   
+
+//    public void show() {
+//        try {
+//            int row = tblshow.getSelectedRow();
+//            if (row >= 0) {
+//                String manpp = (String) tblshow.getValueAt(row, 0);
+//                NhaPhanPhoi npp = dao.selectByID(manpp);
+//                if (npp != null) {
+//                    txtdiachi.setText(npp.getDiaChi());
+//                    txtemail.setText(npp.getEmail());
+//                    txthoten.setText(npp.getTenNhaphanphoi());
+//                    txtmaloaihang.setText(npp.getMaNhaphanphoi());
+//                    txtsdt.setText(npp.getSdt());
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 //    }
-    else if(txtemail.getText().matches("\\\\b[A-Z0-9._%-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,4}\\\\b")){
-        JOptionPane.showMessageDialog(rootPane, "Địa chỉ email không hợp lệ");
-        txtemail.requestFocus();
-        return false;
+
+
+    private void insert() {
+        NhaPhanPhoi npp = getform();
+        try {
+            dao.insert(npp);
+            this.filltotable();
+            DialogHelper.alert(this, "Thêm mới thành công !");
+        } catch (Exception e) {
+            e.printStackTrace();
+            DialogHelper.alert(this, "Thêm mới thất bại !");
+        }
     }
-    
-    
-    
-    
-    
-        return true;
+void delete(){
+    if(!Auth.ismaneger()){
+        JOptionPane.showMessageDialog(this, "Bạn không được phép xóa");
+        
+    }else {
+        String ma = txtmaloaihang.getText();
+        try {
+            dao.delete(ma);
+            filltotable();
+            clear();
+            JOptionPane.showMessageDialog(this, "Xóa thành công !");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Xóa thất bại");
+        }
+    }
 }
-    private void btnnewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnewActionPerformed
-        txtdiachi.setText("");
+    private boolean check() {
+        if (txtmaloaihang.getText().equals("") || txthoten.getText().equals("") || txtsdt.getText().equals("") || txtdiachi.getText().equals("") || txtemail.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập đầy đủ thông tin", "Error", 1);
+            return false;
+        } else if (txtmaloaihang.getText().length() < 4) {
+            JOptionPane.showMessageDialog(rootPane, "Tên mã loại hàng phải lớn hơn 4 ký tự");
+            txtmaloaihang.requestFocus();
+            return false;
+        } else if (txtmaloaihang.getText().matches("[a-zA-Z]+\\\\.?")) {
+            JOptionPane.showMessageDialog(rootPane, "Mã loại hàng không hợp lệ");
+            txtmaloaihang.requestFocus();
+            return false;
+        } else if (txthoten.getText().length() < 10) {
+            JOptionPane.showMessageDialog(rootPane, "Tên nhà phân phối phải lớn hơn 10 ký tự");
+            txtmaloaihang.requestFocus();
+            return false;
+        } else if (txtmaloaihang.getText().matches("[a-zA-Z]+\\\\.?")) {
+            JOptionPane.showMessageDialog(rootPane, "Tên không hợp lệ");
+            txtmaloaihang.requestFocus();
+            return false;
+        } //else if(txtsdt.getText().matches("\"^(0|\\\\+84)(\\\\s|\\\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\\\d)(\\\\s|\\\\.)?(\\\\d{3})(\\\\s|\\\\.)?(\\\\d{3})$")){
+        //        JOptionPane.showMessageDialog(rootPane, "Số điện thoại không hợp lệ");
+        //        txtmaloaihang.requestFocus();
+        //        return false;
+        //    }
+        else if (txtemail.getText().matches("\\\\b[A-Z0-9._%-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,4}\\\\b")) {
+            JOptionPane.showMessageDialog(rootPane, "Địa chỉ email không hợp lệ");
+            txtemail.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+    void clear(){
+         txtdiachi.setText("");
         txtemail.setText("");
         txthoten.setText("");
         txtmaloaihang.setText("");
         txtsdt.setText("");
+    }
+    void setform(NhaPhanPhoi npp){
+           txtdiachi.setText(npp.getDiaChi());
+        txtemail.setText(npp.getEmail());
+        txthoten.setText(npp.getTenNhaphanphoi());
+        txtmaloaihang.setText(npp.getMaNhaphanphoi());
+        txtsdt.setText(npp.getSdt());
+    }
+    
+    NhaPhanPhoi getform(){
+        NhaPhanPhoi npp  = new NhaPhanPhoi();
+        npp.setMaNhaphanphoi(txtmaloaihang.getText());
+        npp.setTenNhaphanphoi(txthoten.getText());
+        npp.setSdt(txtsdt.getText());
+        npp.setEmail(txtemail.getText());
+        npp.setDiaChi(txtdiachi.getText());
+        return npp;
+    }
+    public void showdetail() {
+	try {
+	    String manpp = tblshow.getValueAt(index, 0).toString();
+	    NhaPhanPhoi model = dao.selectByID(manpp);
+	    if (model != null) {
+		setform(model);
+	    }
+	    tblshow.setRowSelectionInterval(index, index);
+	} catch (Exception e) {
+            e.printStackTrace();
+	}
+    }
+    private void btnnewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnewActionPerformed
+        clear();
     }//GEN-LAST:event_btnnewActionPerformed
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
-      
+
         try {
-          if(check()){
-              this.insert();
-          }
+            if (check() == true) {
+                this.insert();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnthemActionPerformed
+
+    private void tblshowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblshowMouseClicked
+       index = tblshow.getSelectedRow();
+       showdetail();
+      
+    }//GEN-LAST:event_tblshowMouseClicked
+
+    private void btnxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoaActionPerformed
+        int question = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa không?");
+        if(question == JOptionPane.YES_OPTION){
+            if(Auth.user.isVAITRO()){
+                delete();
+                
+            }else {
+                
+                JOptionPane.showMessageDialog(this, "Bạn không có quyền xóa");
+            }
+        }
+    }//GEN-LAST:event_btnxoaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
