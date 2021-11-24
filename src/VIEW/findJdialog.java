@@ -246,28 +246,6 @@ public class findJdialog extends javax.swing.JInternalFrame {
 	nhanvien1(sql);
 	txtnhanvien1.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
-    void nhanvien() {
-	DefaultTableModel tblmodel = (DefaultTableModel) tblnahnvien.getModel();
-	tblmodel.setRowCount(0);
-	try {
-
-	    List<NhanVien> list = dao.selectAll();
-	    for (NhanVien nv : list) {
-		Object[] row = {
-		    nv.getMANV(),
-		    nv.getHOTEN(),
-		    nv.isGIOITINH() ? "Nam" : "Nữ",
-		    nv.getDIENTHOAI(),
-		    nv.getEMAIL(),
-		    nv.isVAITRO() ? "Quản Lý" : " Nhân Viên"
-		};
-		tblmodel.addRow(row);
-	    }
-
-	} catch (Exception e) {
-	    e.printStackTrace();
-	}
-    }
 
     void nhanvien1(String sql) {
 	DefaultTableModel tblmodel = (DefaultTableModel) tblnahnvien.getModel();

@@ -22,15 +22,21 @@ public class MainForrm extends javax.swing.JFrame {
 	initComponents();
 	setTitle("QUẢN LÝ BÁN HÀNG ĐIỆN TỦ GIA DỤNG");
 	init();
-	
+
     }
-    
+
     private void init() {
+
 	setExtendedState(MainForrm.MAXIMIZED_BOTH);
 //	new chao1JDialog(this, true).setVisible(true);
 	new DangNhapJdiaLog(this, true).setVisible(true);
 	setLocationRelativeTo(null);
-	
+
+    }
+
+    void dangxuat() {
+	Auth.clean();
+	new DangNhapJdiaLog(this, true).setVisible(true);
     }
 
     /**
@@ -42,11 +48,10 @@ public class MainForrm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanel63 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
-        jSeparator3 = new javax.swing.JToolBar.Separator();
-        jSeparator2 = new javax.swing.JToolBar.Separator();
         jButton7 = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
         jButton8 = new javax.swing.JButton();
         jSeparator8 = new javax.swing.JToolBar.Separator();
         jButton6 = new javax.swing.JButton();
@@ -75,8 +80,6 @@ public class MainForrm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jToolBar1.setRollover(true);
-        jToolBar1.add(jSeparator3);
-        jToolBar1.add(jSeparator2);
 
         jButton7.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Closed door.png"))); // NOI18N
@@ -91,6 +94,7 @@ public class MainForrm extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(jButton7);
+        jToolBar1.add(jSeparator3);
 
         jButton8.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Stop.png"))); // NOI18N
@@ -114,11 +118,6 @@ public class MainForrm extends javax.swing.JFrame {
         jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton6.setMargin(new java.awt.Insets(12, 30, 12, 30));
         jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
         jToolBar1.add(jButton6);
         jToolBar1.add(jSeparator5);
 
@@ -129,11 +128,6 @@ public class MainForrm extends javax.swing.JFrame {
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setMargin(new java.awt.Insets(12, 30, 12, 30));
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
         jToolBar1.add(jButton2);
         jToolBar1.add(jSeparator9);
 
@@ -186,32 +180,35 @@ public class MainForrm extends javax.swing.JFrame {
         jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton5);
 
+        javax.swing.GroupLayout jPanel63Layout = new javax.swing.GroupLayout(jPanel63);
+        jPanel63.setLayout(jPanel63Layout);
+        jPanel63Layout.setHorizontalGroup(
+            jPanel63Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1332, Short.MAX_VALUE)
+        );
+        jPanel63Layout.setVerticalGroup(
+            jPanel63Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel63Layout.createSequentialGroup()
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 3, Short.MAX_VALUE))
+        );
+
+        jToolBar1.getAccessibleContext().setAccessibleParent(this);
+
+        getContentPane().add(jPanel63, java.awt.BorderLayout.PAGE_START);
+
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1332, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 219, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1188, Short.MAX_VALUE)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(jDesktopPane1, java.awt.BorderLayout.CENTER);
 
         jMenu1.setText("Hệ thống");
 
@@ -245,6 +242,11 @@ public class MainForrm extends javax.swing.JFrame {
 
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Stop.png"))); // NOI18N
         jMenuItem4.setText("Kết thúc");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
@@ -268,30 +270,18 @@ public class MainForrm extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
 	// TODO add your handling code here:
+	dangxuat();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
     public void openX(JInternalFrame x) {
 	for (JInternalFrame frmChild : jDesktopPane1.getAllFrames()) {
 	    frmChild.dispose();
 	}
-	
+
 	x.setLocation(this.getWidth() / 2 - x.getWidth() / 2,
 		(this.getHeight() - 20) / 2 - x.getHeight() / 2 - 60);
 	jDesktopPane1.add(x);
@@ -316,58 +306,58 @@ public class MainForrm extends javax.swing.JFrame {
 	}
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+	// TODO add your handling code here:
+	if (Auth.islogin()) {
+	    findJdialog t = new findJdialog();
+	    openX(t);
+	} else {
+	    JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
+	}
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 	// TODO add your handling code here:
-	if(Auth.islogin()){
+	if (Auth.islogin()) {
 	    SanPhamform sp = new SanPhamform();
 	    openX(sp);
-	}else {
+	} else {
 	    JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
 	}
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-	// TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 	// TODO add your handling code here:
 	if (Auth.islogin()) {
-	    TaikhoanJInternalFrame dao = new TaikhoanJInternalFrame();
-	    openX(dao);
+	    NhaPhanphoiJInternalFrame nha = new NhaPhanphoiJInternalFrame();
+	    openX(nha);
 	} else {
 	    JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
 	}
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
 	// TODO add your handling code here:
+	int hoi = JOptionPane.showConfirmDialog(this, "Bạn có muốn thoát khỏi ứng dụng không", "thông báo", JOptionPane.INFORMATION_MESSAGE);
+	if (hoi == JOptionPane.YES_NO_OPTION) {
+	    return;
+	}
+	System.exit(0);
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+	// TODO add your handling code here:
+	int hoi = JOptionPane.showConfirmDialog(this, "Bạn có muốn thoát khỏi ứng dụng không", "thông báo", JOptionPane.INFORMATION_MESSAGE);
+	if (hoi == JOptionPane.YES_NO_OPTION) {
+	    return;
+	}
+	System.exit(0);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 	// TODO add your handling code here:
-	Auth.clean();
-	new DangNhapJdiaLog(this, true).setVisible(true);
+	dangxuat();
     }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
-	if(Auth.islogin()){
-	findJdialog t = new findJdialog();
-	    openX(t);
-	}else{
-	JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
-	}
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        if(Auth.islogin()){
-            NhaPhanphoiJInternalFrame npp = new NhaPhanphoiJInternalFrame();
-            openX(npp);
-        }else{
-            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
-        }
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -423,9 +413,8 @@ public class MainForrm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel63;
     private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar.Separator jSeparator5;

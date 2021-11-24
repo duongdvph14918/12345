@@ -54,6 +54,7 @@ public class SanPhamDAO extends EduSysDAO<SanPham, String> {
 		    entity.getDONGIA(),
 		    entity.getMASP());
 	} catch (Exception e) {
+	    e.printStackTrace();
 	}
     }
 
