@@ -9,9 +9,12 @@ import DAO.NhaPhanPhoiDAO;
 import MODEL.NhaPhanPhoi;
 import Utils.Auth;
 import Utils.DialogHelper;
+import java.awt.Color;
 import java.sql.Connection;
 import java.util.List;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -72,6 +75,8 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
         }
         setVisible(true);
 
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 102, 255));
         jLabel1.setText("Quản lý nhà cung cấp");
@@ -119,15 +124,23 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
 
         txtemail.setText("pnajghas@gmail.com");
 
-        btnthem.setText("Thêm ");
+        btnthem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/plus.png"))); // NOI18N
+        btnthem.setText("Tạo mới");
         btnthem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnthemActionPerformed(evt);
             }
         });
 
+        btnupdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/exchange.png"))); // NOI18N
         btnupdate.setText("Cập nhật");
+        btnupdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnupdateActionPerformed(evt);
+            }
+        });
 
+        btnxoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Trash.png"))); // NOI18N
         btnxoa.setText("Xóa");
         btnxoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,6 +148,7 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
             }
         });
 
+        btnnew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/close-button.png"))); // NOI18N
         btnnew.setText("Làm mới");
         btnnew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,7 +184,7 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
                     .addComponent(btnupdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnthem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnxoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnnew, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnnew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(93, 93, 93))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -199,7 +213,11 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(txtdiachi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtdiachi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnthem)
                         .addGap(18, 18, 18)
@@ -208,11 +226,7 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
                         .addComponent(btnxoa)
                         .addGap(18, 18, 18)
                         .addComponent(btnnew)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -279,6 +293,18 @@ private void filltotable() {
             DialogHelper.alert(this, "Thêm mới thất bại !");
         }
     }
+    void update (){
+        NhaPhanPhoi npp = getform();
+        try {
+            dao.update(npp);
+            filltotable();
+            clear();
+            JOptionPane.showMessageDialog(this, "Update thanh cong !");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Update that bai");
+            e.printStackTrace();
+        }
+    }
 void delete(){
     if(!Auth.ismaneger()){
         JOptionPane.showMessageDialog(this, "Bạn không được phép xóa");
@@ -295,6 +321,17 @@ void delete(){
             JOptionPane.showMessageDialog(this, "Xóa thất bại");
         }
     }
+}
+private boolean checktrung(JTextField text){
+    text.setBackground(Color.white);
+    if(dao.selectByID(text.getText()) == null){
+        return true;
+    }else {
+        text.setBackground(Color.red);
+        JOptionPane.showMessageDialog(this,txtmaloaihang.getName() + "Trung ma nha phan phoi");
+        return false;
+    }
+    
 }
     private boolean check() {
         if (txtmaloaihang.getText().equals("") || txthoten.getText().equals("") || txtsdt.getText().equals("") || txtdiachi.getText().equals("") || txtemail.getText().equals("")) {
@@ -372,7 +409,7 @@ void delete(){
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
 
         try {
-            if (check() == true) {
+            if (check() == true && checktrung(txtmaloaihang) == true) {
                 this.insert();
             }
         } catch (Exception e) {
@@ -398,6 +435,11 @@ void delete(){
             }
         }
     }//GEN-LAST:event_btnxoaActionPerformed
+
+    private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
+        // TODO add your handling code here:
+        update();
+    }//GEN-LAST:event_btnupdateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

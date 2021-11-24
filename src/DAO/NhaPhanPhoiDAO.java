@@ -17,8 +17,7 @@ public class NhaPhanPhoiDAO extends EduSysDAO<NhaPhanPhoi, String>{
 
     String insert_sql ="INSERT INTO NHAPHANPHOI "
             + "(MANHAPHANPHOI,TENNHAPHANPHOI,SODIENTHOAI,EMAIL,DIACHI) VALUES(?,?,?,?,?)";
-    String update_sql = "UPDATE NHAPHANPHOI "
-            + "SET TENNHAPHANPHOI = ?, SODIENTHOAI = ? , EMAIL = ?, DIACHI = ?, WHERE MANHAPHANPHOI = ?";
+    String update_sql = "UPDATE NHAPHANPHOI set TENNHAPHANPHOI = ?, SODIENTHOAI = ? , EMAIL = ?, DIACHI = ? WHERE MANHAPHANPHOI = ?";
     String delete_sql = "delete from NHAPHANPHOI WHERE MANHAPHANPHOI = ?";
     String select_all = "Select * from NHAPHANPHOI ";
     String select_byID = "Select * from NHAPHANPHOI WHERE MANHAPHANPHOI = ?";
@@ -47,7 +46,7 @@ public class NhaPhanPhoiDAO extends EduSysDAO<NhaPhanPhoi, String>{
                     entity.getDiaChi(),
                     entity.getMaNhaphanphoi());
         } catch (Exception e) {
-             throw new RuntimeException();
+           
         }
     }
 

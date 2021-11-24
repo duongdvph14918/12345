@@ -215,7 +215,7 @@ public class SanPhamform extends javax.swing.JInternalFrame {
 	    dao.update(sp);
 	    filltotable();
 	    clear();
-	    JOptionPane.showMessageDialog(this, "Sử thành công");
+	    JOptionPane.showMessageDialog(this, "Sửa thành công");
 	} catch (Exception e) {
 	    JOptionPane.showMessageDialog(this, "Sửa thất bại");
 	}
