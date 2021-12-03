@@ -3,9 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/HP/OneDrive/Desktop/Du%20an%201/12345/src/DAO/BanHangDAO.java</file>
             <file>file:/C:/Users/HP/OneDrive/Desktop/Du%20an%201/12345/src/DAO/ThongKeDAO.java</file>
             <file>file:/C:/Users/HP/OneDrive/Desktop/Du%20an%201/12345/src/VIEW/ThongKeJInternalFrame.java</file>
+=======
+            <file>file:/D:/Desktop/12345/src/VIEW/SanPhamform.java</file>
+            <file>file:/D:/Desktop/12345/src/Utils/hepper.java</file>
+            <file>file:/D:/Desktop/12345/src/VIEW/findJdialog.java</file>
+            <file>file:/D:/Desktop/12345/src/VIEW/MainForrm.java</file>
+            <file>file:/D:/Desktop/12345/src/DAO/SanPhamDAO.java</file>
+>>>>>>> 39b92c4687eec114267682ca0a70074e403a8893
         </group>
     </open-files>
 </project-private>
