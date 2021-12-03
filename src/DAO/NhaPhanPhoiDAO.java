@@ -91,7 +91,7 @@ public class NhaPhanPhoiDAO extends EduSysDAO<NhaPhanPhoi, String>{
        
     }
     public List<NhaPhanPhoi> selectByKeyWord(String keyword){
-        String sql = "Select * from NHAPHANPHOI WHERE MANHAPHANPHOI LIKE N ?";
-        return this.selectBySQL(sql, "% "+ keyword + " %");
+        String sql = "Select * from NHAPHANPHOI WHERE MANHAPHANPHOI LIKE ? ";
+        return this.selectBySQL(sql, "%"+ keyword + "%");
     }
 }

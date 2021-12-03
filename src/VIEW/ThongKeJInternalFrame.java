@@ -5,6 +5,21 @@
  */
 package VIEW;
 
+import DAO.BanHangDAO;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import DAO.ThongKeDAO;
+import MODEL.BanHang;
+import java.io.File;
+import java.io.FileOutputStream;
+import javax.swing.DefaultComboBoxModel;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 /**
  *
  * @author HP
@@ -14,10 +29,33 @@ public class ThongKeJInternalFrame extends javax.swing.JInternalFrame {
     /**
      * Creates new form ThongKeJInternalFrame
      */
+    ThongKeDAO dao = new ThongKeDAO();
+    BanHangDAO bhdao = new BanHangDAO();
     public ThongKeJInternalFrame() {
         initComponents();
+       fillcbbThang();
     }
-
+    void fillcbbThang() {
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cbbthang.getModel();
+        model.removeAllElements();
+        List<BanHang> list = bhdao.select();
+        for (BanHang bh : list) {
+            int thang = bh.getNgaytao().getYear() +1900;
+            if (model.getIndexOf(thang) < 0) {
+                model.addElement(thang);
+            }
+        }
+        cbbthang.setSelectedIndex(0);
+    }
+void thongke(){
+     DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        int thang = Integer.parseInt(cbbthang.getSelectedItem().toString());
+        List<Object[]> list = dao.getDoanhThu(thang);
+        for (Object[] row : list) {
+            model.addRow(row);
+        }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,11 +86,11 @@ public class ThongKeJInternalFrame extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Mã sản phẩm", "Loại sản phẩm", "Số lượng đã bán", "Tổng doanh thu"
+                "Mã nhân viên", "Tổng hóa đơn", "Tổng doanh thu", "Đơn cao nhất", "Đơn thấp nhất", "Trung bình mỗi đơn"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                true, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -61,7 +99,12 @@ public class ThongKeJInternalFrame extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("Xuất file .PDF");
+        jButton1.setText("Xuất file Excel");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -69,14 +112,20 @@ public class ThongKeJInternalFrame extends javax.swing.JInternalFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Thời gian :");
+        jLabel2.setText("Thời gian (Năm) :");
+
+        cbbthang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbthangActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(560, Short.MAX_VALUE)
+                .addContainerGap(556, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(31, 31, 31))
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -85,9 +134,9 @@ public class ThongKeJInternalFrame extends javax.swing.JInternalFrame {
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbbthang, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel2)
+                .addGap(13, 13, 13)
+                .addComponent(cbbthang, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -99,7 +148,7 @@ public class ThongKeJInternalFrame extends javax.swing.JInternalFrame {
                     .addComponent(cbbthang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -129,8 +178,7 @@ public class ThongKeJInternalFrame extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, Short.MAX_VALUE)
-                .addGap(23, 23, 23))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -152,6 +200,70 @@ public class ThongKeJInternalFrame extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cbbthangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbthangActionPerformed
+        // TODO add your handling code here:
+        thongke();
+    }//GEN-LAST:event_cbbthangActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        try{
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        CreationHelper createHelper = workbook.getCreationHelper();  
+        XSSFSheet sheet = workbook.createSheet("Thống kê doanh thu");
+        XSSFRow row = null;
+        Cell cell = null;
+        row = sheet.createRow(3);
+             CellStyle cellStyle = workbook.createCellStyle();  
+            cellStyle.setDataFormat(  
+                createHelper.createDataFormat().getFormat("dd/mm/yy "));  
+                 
+        cell = row.createCell(0,CellType.STRING);
+        cell.setCellValue("Danh sách hóa đơn");
+        
+        cell = row.createCell(1);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue("Ngày tạo");
+        
+        cell = row.createCell(2,CellType.STRING);
+        cell.setCellValue("Người tạo");
+        
+        cell = row.createCell(3,CellType.STRING);
+        cell.setCellValue("Thành tiền");
+       
+        
+        List<BanHang> list = bhdao.select();
+        if(list != null){
+        int s = list.size();
+        for(int i = 0 ; i<s;i++){
+            BanHang bh  = list.get(i);
+            row = sheet.createRow(4 + i);
+            cell = row.createCell(0,CellType.NUMERIC);
+            cell.setCellValue(bh.getMahd());
+            
+             cell = row.createCell(1);
+            cell.setCellStyle(cellStyle);
+             cell.setCellValue(bh.getNgaytao());
+                 
+             cell = row.createCell(2,CellType.STRING);
+            cell.setCellValue(bh.getNhanvien());
+            
+             cell = row.createCell(3,CellType.STRING);
+            cell.setCellValue(bh.getDonGia());
+            
+//                    cell = row.createCell(4,CellType.STRING);
+//            cell.setCellValue(bh.getNhanvien());
+        }
+        File f = new File("E:\\thongke.xlsx");
+            FileOutputStream fos =new FileOutputStream(f);
+            workbook.write(fos);
+            fos.close();
+    }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

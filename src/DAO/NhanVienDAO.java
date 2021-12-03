@@ -102,7 +102,7 @@ public class NhanVienDAO extends EduSysDAO<NhanVien, String> {
 	return list.get(0);
     }
         public List<NhanVien> selectByKeyword(String keyword) {
-       String sql ="select * from NHANVIEN where MANV like N ? ";
+       String sql ="select * from NHANVIEN where MANV like  ?% ";
         return this.selectBySQL(sql, "%" + keyword + "%");
     }
 }

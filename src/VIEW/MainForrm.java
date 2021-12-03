@@ -19,18 +19,18 @@ public class MainForrm extends javax.swing.JFrame {
      * Creates new form MainForrm
      */
     public MainForrm() {
-	initComponents();
-	setTitle("QUẢN LÝ BÁN HÀNG ĐIỆN TỦ GIA DỤNG");
-	init();
-	
+        initComponents();
+        setTitle("QUẢN LÝ BÁN HÀNG ĐIỆN TỦ GIA DỤNG");
+        init();
+
     }
-    
+
     private void init() {
-	setExtendedState(MainForrm.MAXIMIZED_BOTH);
+        setExtendedState(MainForrm.MAXIMIZED_BOTH);
 //	new chao1JDialog(this, true).setVisible(true);
-	new DangNhapJdiaLog(this, true).setVisible(true);
-	setLocationRelativeTo(null);
-	
+        new DangNhapJdiaLog(this, true).setVisible(true);
+        setLocationRelativeTo(null);
+
     }
 
     /**
@@ -184,6 +184,11 @@ public class MainForrm extends javax.swing.JFrame {
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5.setMargin(new java.awt.Insets(12, 30, 12, 30));
         jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton5);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
@@ -285,123 +290,134 @@ public class MainForrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-	// TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
     public void openX(JInternalFrame x) {
-	for (JInternalFrame frmChild : jDesktopPane1.getAllFrames()) {
-	    frmChild.dispose();
-	}
-	
-	x.setLocation(this.getWidth() / 2 - x.getWidth() / 2,
-		(this.getHeight() - 20) / 2 - x.getHeight() / 2 - 60);
-	jDesktopPane1.add(x);
-	x.setVisible(true);
+        for (JInternalFrame frmChild : jDesktopPane1.getAllFrames()) {
+            frmChild.dispose();
+        }
+
+        x.setLocation(this.getWidth() / 2 - x.getWidth() / 2,
+                (this.getHeight() - 20) / 2 - x.getHeight() / 2 - 60);
+        jDesktopPane1.add(x);
+        x.setVisible(true);
     }
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-	// TODO add your handling code here:
-	new DangNhapJdiaLog(this, true).setVisible(true);
+        // TODO add your handling code here:
+        new DangNhapJdiaLog(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-	// TODO add your handling code here:
+        // TODO add your handling code here:
 //	if (Auth.islogin()) {
 //	    new DoiMatKhauJdiaLog(this, true).setVisible(true);
 //	} else {
 //	    JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
 //	}
-	if (Auth.islogin()) {
-	    new DoimatkhaujdiaLog(this, true).setVisible(true);
-	} else {
-	    JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
-	}
+        if (Auth.islogin()) {
+            new DoimatkhaujdiaLog(this, true).setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
+        }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-	// TODO add your handling code here:
-	if(Auth.islogin()){
-	    SanPhamform sp = new SanPhamform();
-	    openX(sp);
-	}else {
-	    JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
-	}
+        // TODO add your handling code here:
+        if (Auth.islogin()) {
+            SanPhamform sp = new SanPhamform();
+            openX(sp);
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-	// TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-	// TODO add your handling code here:
-	if (Auth.islogin()) {
-	    TaikhoanJInternalFrame dao = new TaikhoanJInternalFrame();
-	    openX(dao);
-	} else {
-	    JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
-	}
+        // TODO add your handling code here:
+        if (Auth.islogin()) {
+            TaikhoanJInternalFrame dao = new TaikhoanJInternalFrame();
+            openX(dao);
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-	// TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-	// TODO add your handling code here:
-	Auth.clean();
-	new DangNhapJdiaLog(this, true).setVisible(true);
+        // TODO add your handling code here:
+        Auth.clean();
+        new DangNhapJdiaLog(this, true).setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-	if(Auth.islogin()){
-	findJdialog t = new findJdialog();
-	    openX(t);
-	}else{
-	JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
-	}
+        if (Auth.islogin()) {
+            findJdialog t = new findJdialog();
+            openX(t);
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
+        }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        if(Auth.islogin()){
+        if (Auth.islogin()) {
             NhaPhanphoiJInternalFrame npp = new NhaPhanphoiJInternalFrame();
             openX(npp);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        if (Auth.islogin()) {
+            ThongKeJInternalFrame tk = new ThongKeJInternalFrame();
+            openX(tk);
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
+
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-	/* Set the Nimbus look and feel */
-	//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-	/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-	 */
-	try {
-	    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-		if ("Nimbus".equals(info.getName())) {
-		    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-		    break;
-		}
-	    }
-	} catch (ClassNotFoundException ex) {
-	    java.util.logging.Logger.getLogger(MainForrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	} catch (InstantiationException ex) {
-	    java.util.logging.Logger.getLogger(MainForrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	} catch (IllegalAccessException ex) {
-	    java.util.logging.Logger.getLogger(MainForrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-	    java.util.logging.Logger.getLogger(MainForrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	}
-	//</editor-fold>
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MainForrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MainForrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MainForrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MainForrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-	/* Create and display the form */
-	java.awt.EventQueue.invokeLater(new Runnable() {
-	    public void run() {
-		new MainForrm().setVisible(true);
-	    }
-	});
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MainForrm().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
