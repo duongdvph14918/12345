@@ -4,10 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Desktop/12345/src/VIEW/SanPhamform.java</file>
-            <file>file:/D:/Desktop/12345/src/Utils/hepper.java</file>
-            <file>file:/D:/Desktop/12345/src/VIEW/findJdialog.java</file>
+            <file>file:/D:/Desktop/12345/src/MODEL/SanPham.java</file>
+            <file>file:/D:/Desktop/12345/src/VIEW/DangNhapJdiaLog.java</file>
+            <file>file:/D:/Desktop/12345/src/VIEW/Sencode.java</file>
             <file>file:/D:/Desktop/12345/src/VIEW/MainForrm.java</file>
-            <file>file:/D:/Desktop/12345/src/DAO/SanPhamDAO.java</file>
         </group>
     </open-files>
 </project-private>

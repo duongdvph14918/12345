@@ -102,7 +102,7 @@ public class SanPhamDAO extends EduSysDAO<SanPham, String> {
     }
 
     public List<SanPham> bykey(String key) {
-	String sql = "select * from SANPHAM where MASP like ?";
-	return this.selectBySQL(sql, "%" + key + "%");
+	String sql = "select * from SANPHAM where MASP like ? or TENSP like ?";
+	return this.selectBySQL(sql, "%" + key + "%","%"+key+"%");
     }
 }

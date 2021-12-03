@@ -26,10 +26,13 @@ public class XImage {
 
        public static void save(File src){
         File dst = new File("logos",src.getName());
+	//khai báo thư mục logos ngang hàng với src
+     // Tạo thư mục nếu chưa tồn tại
         if (!dst.getParentFile().exists()) {
             dst.getParentFile().mkdirs();
         }
         try {
+	    // Copy vào thư mục logos (đè nếu đã tồn tại)
             Path from = Paths.get(src.getAbsolutePath());
             Path to = Paths.get(dst.getAbsolutePath());
             Files.copy(from,to,StandardCopyOption.REPLACE_EXISTING);

@@ -28,7 +28,6 @@ public class utilityHelper {
 	    JOptionPane.showMessageDialog(txt.getRootPane(), "Không được để trống mật khẩu");
 	    return false;
 	}
-
     }
 
     public static boolean checkma(JTextField txt) {

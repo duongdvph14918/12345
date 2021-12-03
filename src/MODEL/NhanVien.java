@@ -10,14 +10,14 @@ package MODEL;
  * @author Admin
  */
 public class NhanVien {
+
     private String MANV;
-     private String HOTEN;
-    private boolean GIOITINH ;
+    private String HOTEN;
+    private boolean GIOITINH;
     private String DIENTHOAI;
-     private boolean VAITRO = false ;
+    private boolean VAITRO = false;
     private String EMAIL;
     private String MATKHAU;
-   
 
     public NhanVien() {
     }
@@ -88,5 +88,4 @@ public class NhanVien {
 	this.VAITRO = VAITRO;
     }
 
-   
 }

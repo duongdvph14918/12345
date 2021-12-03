@@ -41,46 +41,38 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                                  <Component id="txtmasanpham" min="-2" pref="293" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" attributes="0">
-                                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="txtténanpham" min="-2" pref="293" max="-2" attributes="0"/>
-                                              </Group>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="cbomaloaiihang" min="-2" pref="293" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="txtmasanpham" min="-2" pref="296" max="-2" attributes="0"/>
+                                                      <Component id="txtténanpham" min="-2" pref="296" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="cbonhass" min="-2" pref="293" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="cbomaloaiihang" min="-2" pref="293" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Component id="txtdongia" max="32767" attributes="0"/>
+                                                      <Component id="cbonhass" pref="293" max="32767" attributes="0"/>
                                                       <Component id="txtsoluong" alignment="0" max="32767" attributes="0"/>
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                                          <Component id="cbonhapp" min="-2" pref="289" max="-2" attributes="0"/>
-                                                      </Group>
+                                                      <Component id="cbonhapp" alignment="1" pref="293" max="32767" attributes="0"/>
+                                                      <Component id="txtdongia" alignment="1" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
@@ -169,9 +161,9 @@
                           <Component id="cbonhass" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cbonhapp" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="cbonhapp" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -404,7 +396,7 @@
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="8" rowCount="0">
                 <Column editable="false" title="ID s&#x1ea3;n ph&#x1ea9;m" type="java.lang.Object"/>
-                <Column editable="false" title="T&#xea;n san ph&#x1ea9;m" type="java.lang.Object"/>
+                <Column editable="false" title="T&#xea;n s&#x1ea3;n ph&#x1ea9;m" type="java.lang.Object"/>
                 <Column editable="false" title="M&#xe3; lo&#x1ea1;i h&#xe0;ng" type="java.lang.Object"/>
                 <Column editable="false" title="Nh&#xe0; s&#x1ea3;n xu&#x1ea5;t" type="java.lang.Object"/>
                 <Column editable="false" title="Nh&#xe0; ph&#xe2;n ph&#x1ed1;i" type="java.lang.Object"/>
@@ -436,7 +428,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/icon/Edit.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="S&#x1ee7;a"/>
+        <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnsuaActionPerformed"/>

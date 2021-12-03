@@ -133,7 +133,7 @@ public class MainForrm extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Desktop.png"))); // NOI18N
-        jButton1.setText("Loại Hàng");
+        jButton1.setText("Sản phẩm");
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setMargin(new java.awt.Insets(12, 30, 12, 30));

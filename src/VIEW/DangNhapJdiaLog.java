@@ -34,7 +34,7 @@ public class DangNhapJdiaLog extends javax.swing.JDialog {
 
     public boolean checknull() {
 	if (txttendn.getText().equals("") || txtpas.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane,"Vui lòng nhập đầy đủ thông tin !");
+	    JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập đầy đủ thông tin !");
 	    txttendn.setBackground(Color.yellow);
 	    txtpas.setBackground(Color.yellow);
 	    return false;
@@ -198,39 +198,39 @@ public class DangNhapJdiaLog extends javax.swing.JDialog {
 	if (chk.isSelected()) {
 	    txtpas.setEchoChar((char) 0);
 	} else {
-	    txtpas.setEchoChar('*');
+//	    txtpas.setEchoChar('*');
 	}
     }//GEN-LAST:event_chkMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 	// TODO add your handling code here:
-if(checknull()){
-dangnhap();
-}
+	if (checknull()) {
+	    dangnhap();
+	}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txttendnKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttendnKeyPressed
-      if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-         dangnhap();
-      }
+	if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+	    dangnhap();
+	}
     }//GEN-LAST:event_txttendnKeyPressed
 
     private void txtpasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpasKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-         dangnhap();
-      }
+	if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+	    dangnhap();
+	}
     }//GEN-LAST:event_txtpasKeyPressed
     public void dangnhap() {
 	try {
 	    NhanVienDAO dao = new NhanVienDAO();
 	    String mmanv = txttendn.getText();
 	    String pass = new String(txtpas.getPassword());
-	    NhanVien nv = dao.selectByID(mmanv);
-	    if (nv != null) {
-		String matkhau = nv.getMATKHAU();
+	    NhanVien nhanvien = dao.selectByID(mmanv);
+	    if (nhanvien != null) {
+		String matkhau = nhanvien.getMATKHAU();
 		if (pass.equals(matkhau)) {
-		    Auth.user = nv;
-		    JOptionPane.showMessageDialog(this, "Đăng nhập thnành công");
+		    Auth.user = nhanvien;
+		    JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
 		    this.dispose();
 		} else {
 		    JOptionPane.showMessageDialog(this, "Sai mật khẩu");

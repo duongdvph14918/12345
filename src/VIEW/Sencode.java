@@ -187,13 +187,14 @@ public class Sencode extends javax.swing.JFrame {
 		    JOptionPane.showMessageDialog(this, "code bạn nhập không đúng");
 
 		} else {
-		    dmksendcode dk = new dmksendcode(this,true,txtten);
+		    dmksendcode dk = new dmksendcode(this, true, txtten);
 		    this.setVisible(false);
 		    dk.setVisible(true);
-		    
+
 		}
 	    } else {
 		JOptionPane.showMessageDialog(this, "Bạn không được nhập chữ");
+		
 	    }
 	} catch (Exception e) {
 	    e.printStackTrace();
@@ -209,8 +210,8 @@ public class Sencode extends javax.swing.JFrame {
 	NhanVienDAO dao = new NhanVienDAO();
 	NhanVien nv = dao.selectByID(txtten.getText());
 	if (nv == null) {
-	    JOptionPane.showMessageDialog(this, "Tên nhân viên của bạn không tồn tại");
-	    return true;
+	    JOptionPane.showMessageDialog(this, "Mã nhân viên không tồn tại");
+	    return false;
 	} else {
 	    txtEmail.setText(nv.getEMAIL());
 	    return true;

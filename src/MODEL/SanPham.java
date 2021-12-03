@@ -10,14 +10,15 @@ package MODEL;
  * @author Admin
  */
 public class SanPham {
-   private String MASP;
-      private String TENSP;
-      private String MALH ;
-      private String HINH;
-      private String MANSX;
-      private String MANHAPHANPHOI ;
-      private int  SOLUONG ;
-       private double DONGIA;
+
+    private String MASP;
+    private String TENSP;
+    private String MALH;
+    private String HINH;
+    private String MANSX;
+    private String MANHAPHANPHOI;
+    private int SOLUONG;
+    private double DONGIA;
 
     public SanPham() {
     }
@@ -100,5 +101,5 @@ public class SanPham {
     public SanPham(String MANSX) {
 	this.MANSX = MANSX;
     }
-       
+
 }

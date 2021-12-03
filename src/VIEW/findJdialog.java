@@ -71,7 +71,6 @@ public class findJdialog extends javax.swing.JInternalFrame {
         txtnhanvien1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        btntraikhoan = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbltaikhoan = new javax.swing.JTable();
 
@@ -139,20 +138,12 @@ public class findJdialog extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtnhanvien1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Nhân viên", jPanel2);
-
-        btntraikhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Find.png"))); // NOI18N
-        btntraikhoan.setText("Tìm kiếm");
-        btntraikhoan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btntraikhoanActionPerformed(evt);
-            }
-        });
 
         tbltaikhoan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -182,23 +173,16 @@ public class findJdialog extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 649, Short.MAX_VALUE)
-                        .addComponent(btntraikhoan)))
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
                 .addGap(35, 35, 35))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(btntraikhoan)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(65, 65, 65)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Tài khoản", jPanel1);
@@ -234,15 +218,9 @@ public class findJdialog extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbltaikhoanMouseClicked
 
 
-    private void btntraikhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntraikhoanActionPerformed
-	// TODO add your handling code here:
-
-
-    }//GEN-LAST:event_btntraikhoanActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 	// TODO add your handling code here:
-	String sql = "select * from NHANVIEN where MANV like N'%" + txtnhanvien1.getText() + "%' or HOTEN like N'%" + txtnhanvien1.getText() + "%'";
+	String sql = "select * from NHANVIEN where MANV like N'%"+txtnhanvien1.getText()+"%' or HOTEN like N'%"+txtnhanvien1.getText()+"%'";
 	nhanvien1(sql);
 	txtnhanvien1.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -270,6 +248,24 @@ public class findJdialog extends javax.swing.JInternalFrame {
 	}
     }
 
+//    void nhanvien() {
+//	DefaultTableModel tblmodel = (DefaultTableModel) tblnahnvien.getModel();
+//	tblmodel.setRowCount(0);
+//	try {
+//	   String keyword = txtnhanvien1.getText();
+//	List<NhanVien> list = dao.selectByKeyword(keyword);
+//
+//	 for(NhanVien nv :list){
+//	 Object[] row ={
+//	 nv.getMANV(),nv.getHOTEN(),nv.isGIOITINH()?"Nam" : "nữ",
+//	     nv.getDIENTHOAI(),nv.getEMAIL(),nv.isVAITRO() ? "Quản lý":"nhân viên"
+//	 };
+//	 tblmodel.addRow(row);
+//	 }
+//	} catch (Exception e) {
+//	    e.printStackTrace();
+//	}
+//    }
     void taikhoan() {
 	DefaultTableModel tblmodel = (DefaultTableModel) tbltaikhoan.getModel();
 	tblmodel.setRowCount(0);
@@ -306,7 +302,6 @@ public class findJdialog extends javax.swing.JInternalFrame {
 	}
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btntraikhoan;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
