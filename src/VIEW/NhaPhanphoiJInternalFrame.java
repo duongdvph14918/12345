@@ -7,10 +7,15 @@ package VIEW;
 
 import DAO.NhaPhanPhoiDAO;
 import MODEL.NhaPhanPhoi;
+import Utils.Auth;
 import Utils.DialogHelper;
+import java.awt.Color;
 import java.sql.Connection;
 import java.util.List;
+import java.util.regex.Pattern;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,10 +29,10 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
      */
     NhaPhanPhoiDAO dao = new NhaPhanPhoiDAO();
     int index;
- 
+
     public NhaPhanphoiJInternalFrame() {
         initComponents();
-       filltotable();
+        filltotable();
     }
 
     /**
@@ -58,6 +63,8 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
         btnupdate = new javax.swing.JButton();
         btnxoa = new javax.swing.JButton();
         btnnew = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
+        txttimkiem = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -71,6 +78,8 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
         }
         setVisible(true);
 
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 102, 255));
         jLabel1.setText("Quản lý nhà cung cấp");
@@ -82,7 +91,20 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
             new String [] {
                 "Mã loại hàng", "Họ tên", "SĐT", "Địa chỉ", "Email"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblshow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblshowMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblshow);
 
         jLabel2.setText("Mã loại hàng :");
@@ -105,21 +127,50 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
 
         txtemail.setText("pnajghas@gmail.com");
 
-        btnthem.setText("Thêm ");
+        btnthem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/plus.png"))); // NOI18N
+        btnthem.setText("Tạo mới");
         btnthem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnthemActionPerformed(evt);
             }
         });
 
+        btnupdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/exchange.png"))); // NOI18N
         btnupdate.setText("Cập nhật");
+        btnupdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnupdateActionPerformed(evt);
+            }
+        });
 
+        btnxoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Trash.png"))); // NOI18N
         btnxoa.setText("Xóa");
+        btnxoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnxoaActionPerformed(evt);
+            }
+        });
 
+        btnnew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/close-button.png"))); // NOI18N
         btnnew.setText("Làm mới");
         btnnew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnnewActionPerformed(evt);
+            }
+        });
+
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Search.png"))); // NOI18N
+        btnSearch.setText("Tìm kiếm");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+
+        txttimkiem.setToolTipText("");
+        txttimkiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txttimkiemMouseClicked(evt);
             }
         });
 
@@ -129,7 +180,7 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
@@ -146,22 +197,29 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
                     .addComponent(txtsdt)
                     .addComponent(txtdiachi)
                     .addComponent(txtemail))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnupdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnthem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnxoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnnew, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(93, 93, 93))
+                    .addComponent(btnnew, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(207, 207, 207))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(207, 207, 207))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(txttimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSearch)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,7 +238,11 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(txtdiachi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtdiachi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnthem)
                         .addGap(18, 18, 18)
@@ -189,11 +251,11 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
                         .addComponent(btnxoa)
                         .addGap(18, 18, 18)
                         .addComponent(btnnew)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txttimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -211,102 +273,303 @@ public class NhaPhanphoiJInternalFrame extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private void filltotable(){ 
-    DefaultTableModel model = (DefaultTableModel) tblshow.getModel();
-    model.setRowCount(0);
-    try {
-        List<NhaPhanPhoi> list = dao.selectAll();
-        for(NhaPhanPhoi npp : list){
-            Object[] row = {
-                npp.getMaNhaphanphoi(),npp.getTenNhaphanphoi(),npp.getSdt(),npp.getDiaChi(),npp.getEmail()
-            };
-            model.addRow(row);
+private void filltotable() {
+        DefaultTableModel model = (DefaultTableModel) tblshow.getModel();
+        model.setRowCount(0);
+        try {
+            List<NhaPhanPhoi> list = dao.selectAll();
+            for (NhaPhanPhoi npp : list) {
+                Object[] row = {
+                    npp.getMaNhaphanphoi(), npp.getTenNhaphanphoi(), npp.getSdt(), npp.getDiaChi(), npp.getEmail()
+                };
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }  
-}
-NhaPhanPhoi getModel(){
-    NhaPhanPhoi npp = new NhaPhanPhoi();
-        npp.setDiaChi(txtdiachi.getText());
-        npp.setEmail(txtemail.getText());
-        npp.setMaNhaphanphoi(txtmaloaihang.getText());
-        npp.setSdt(txthoten.getText());
-        npp.setTenNhaphanphoi(txthoten.getText());
-        
-        return npp;
-}
-private void insert(){
-    NhaPhanPhoi npp = getModel();
-    try {
-        dao.insert(npp);
-        this.filltotable();
-        DialogHelper.alert(this, "Thêm mới thành công !");
-    } catch (Exception e) {
-        e.printStackTrace();
-        DialogHelper.alert(this, "Thêm mới thất bại !");
     }
-}
 
-private boolean check(){
-    if(txtmaloaihang.getText().equals("") || txthoten.getText().equals("") || txtsdt.getText().equals("") || txtdiachi.getText().equals("") || txtemail.getText().equals("") ){
-        JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập đầy đủ thông tin", "Error", 1);
-        return false;
-    }else if(txtmaloaihang.getText().length()<4){
-        JOptionPane.showMessageDialog(rootPane, "Tên mã loại hàng phải lớn hơn 4 ký tự");
-        txtmaloaihang.requestFocus();
-        return false;
-    }else if(txtmaloaihang.getText().matches("[a-zA-Z]+\\\\.?")){
-        JOptionPane.showMessageDialog(rootPane, "Mã loại hàng không hợp lệ");
-        txtmaloaihang.requestFocus();
-        return false;
-    }else  if(txthoten.getText().length()< 10){
-        JOptionPane.showMessageDialog(rootPane, "Tên nhà phân phối phải lớn hơn 10 ký tự");
-        txtmaloaihang.requestFocus();
-        return false;
-    }else if(txtmaloaihang.getText().matches("[a-zA-Z]+\\\\.?")){
-        JOptionPane.showMessageDialog(rootPane, "Tên không hợp lệ");
-        txtmaloaihang.requestFocus();
-        return false;
-   }
-//else if(txtsdt.getText().matches("\"^(0|\\\\+84)(\\\\s|\\\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\\\d)(\\\\s|\\\\.)?(\\\\d{3})(\\\\s|\\\\.)?(\\\\d{3})$")){
-//        JOptionPane.showMessageDialog(rootPane, "Số điện thoại không hợp lệ");
-//        txtmaloaihang.requestFocus();
-//        return false;
+//    public void show() {
+//        try {
+//            int row = tblshow.getSelectedRow();
+//            if (row >= 0) {
+//                String manpp = (String) tblshow.getValueAt(row, 0);
+//                NhaPhanPhoi npp = dao.selectByID(manpp);
+//                if (npp != null) {
+//                    txtdiachi.setText(npp.getDiaChi());
+//                    txtemail.setText(npp.getEmail());
+//                    txthoten.setText(npp.getTenNhaphanphoi());
+//                    txtmaloaihang.setText(npp.getMaNhaphanphoi());
+//                    txtsdt.setText(npp.getSdt());
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 //    }
-    else if(txtemail.getText().matches("\\\\b[A-Z0-9._%-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,4}\\\\b")){
-        JOptionPane.showMessageDialog(rootPane, "Địa chỉ email không hợp lệ");
-        txtemail.requestFocus();
-        return false;
+    private void insert() {
+        NhaPhanPhoi npp = getform();
+        try {
+            dao.insert(npp);
+            this.filltotable();
+            DialogHelper.alert(this, "Thêm mới thành công !");
+        } catch (Exception e) {
+            e.printStackTrace();
+            DialogHelper.alert(this, "Thêm mới thất bại !");
+        }
     }
-    
-    
-    
-    
-    
+
+    void update() {
+        NhaPhanPhoi npp = getform();
+        try {
+            dao.update(npp);
+            filltotable();
+            clear();
+            JOptionPane.showMessageDialog(this, "Update thanh cong !");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Update that bai");
+            e.printStackTrace();
+        }
+    }
+
+    void delete() {
+        if (!Auth.ismaneger()) {
+            JOptionPane.showMessageDialog(this, "Bạn không được phép xóa");
+
+        } else {
+            String ma = txtmaloaihang.getText();
+            try {
+                dao.delete(ma);
+                filltotable();
+                clear();
+                JOptionPane.showMessageDialog(this, "Xóa thành công !");
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Xóa thất bại");
+            }
+        }
+    }
+
+    private boolean checktrung(JTextField text) {
+        text.setBackground(Color.white);
+        if (dao.selectByID(text.getText()) == null) {
+            return true;
+        } else {
+            text.setBackground(Color.red);
+            JOptionPane.showMessageDialog(this, "Trung ma nha phan phoi");
+            return false;
+        }
+
+    }
+
+    private boolean check() {
+        if (txtmaloaihang.getText().equals("") || txthoten.getText().equals("") || txtsdt.getText().equals("") || txtdiachi.getText().equals("") || txtemail.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập đầy đủ thông tin", "Error", 1);
+            return false;
+        } else if (txtmaloaihang.getText().length() < 4) {
+            JOptionPane.showMessageDialog(rootPane, "Tên mã loại hàng phải lớn hơn 4 ký tự");
+            txtmaloaihang.requestFocus();
+            return false;
+        } else if (txtmaloaihang.getText().matches("[a-zA-Z]+\\\\.?")) {
+            JOptionPane.showMessageDialog(rootPane, "Mã loại hàng không hợp lệ");
+            txtmaloaihang.requestFocus();
+            return false;
+        } else if (txthoten.getText().length() < 10) {
+            JOptionPane.showMessageDialog(rootPane, "Tên nhà phân phối phải lớn hơn 10 ký tự");
+            txtmaloaihang.requestFocus();
+            return false;
+        } else if (txtmaloaihang.getText().matches("[a-zA-Z]+\\\\.?")) {
+            JOptionPane.showMessageDialog(rootPane, "Tên không hợp lệ");
+            txtmaloaihang.requestFocus();
+            return false;
+        }
+
         return true;
-}
-    private void btnnewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnewActionPerformed
+    }
+
+    public boolean checkEmail(String mail) {
+        {
+            String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."
+                    + "[a-zA-Z0-9_+&*-]+)*@"
+                    + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+                    + "A-Z]{2,7}$";
+// validate của email
+            Pattern pat = Pattern.compile(emailRegex);
+            if (mail == null) {
+
+                return false;
+            }
+            return pat.matcher(mail).matches();
+        }
+    }
+
+    public boolean checkSDT(String sdt) {
+        {
+            String phoneRegex = "(84|0[3|5|7|8|9])+([0-9]{8})\\b";
+            Pattern pat = Pattern.compile(phoneRegex);
+            if (sdt == null) {
+
+                return false;
+            }
+            return pat.matcher(sdt).matches();
+        }
+    }
+
+    public boolean checkma(String manpp) {
+        {
+            String codeRegex = "(84|0[3|5|7|8|9])+([0-9]{8})\\b";
+            Pattern pat = Pattern.compile(codeRegex);
+            if (manpp == null) {
+
+                return false;
+            }
+            return pat.matcher(manpp).matches();
+        }
+    }
+
+    public boolean checkkitudacbiet(String text) {
+        String textRegex = "[a-zA-Z0-9 ]*";
+        Pattern pat = Pattern.compile(textRegex);
+        if (text == null) {
+
+            return false;
+        }
+        return pat.matcher(text).matches();
+    }
+
+    void clear() {
         txtdiachi.setText("");
         txtemail.setText("");
         txthoten.setText("");
         txtmaloaihang.setText("");
         txtsdt.setText("");
+    }
+
+    void setform(NhaPhanPhoi npp) {
+        txtdiachi.setText(npp.getDiaChi());
+        txtemail.setText(npp.getEmail());
+        txthoten.setText(npp.getTenNhaphanphoi());
+        txtmaloaihang.setText(npp.getMaNhaphanphoi());
+        txtsdt.setText(npp.getSdt());
+    }
+
+    NhaPhanPhoi getform() {
+        NhaPhanPhoi npp = new NhaPhanPhoi();
+        npp.setMaNhaphanphoi(txtmaloaihang.getText());
+        npp.setTenNhaphanphoi(txthoten.getText());
+        npp.setSdt(txtsdt.getText());
+        npp.setEmail(txtemail.getText());
+        npp.setDiaChi(txtdiachi.getText());
+        return npp;
+    }
+
+    public void showdetail() {
+        try {
+            String manpp = tblshow.getValueAt(index, 0).toString();
+            NhaPhanPhoi model = dao.selectByID(manpp);
+            if (model != null) {
+                setform(model);
+            }
+            tblshow.setRowSelectionInterval(index, index);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void timkiem(){
+        try {
+             if(txttimkiem.getText().equals("")){
+                    JOptionPane.showMessageDialog(this, "Nhà phân phối không tồn tại");
+                    return;
+                }
+            DefaultTableModel model = (DefaultTableModel) tblshow.getModel();
+            model.setRowCount(0);
+            String keyword = txttimkiem.getText();
+            List<NhaPhanPhoi> list = dao.selectByKeyWord(keyword);
+           
+            for(NhaPhanPhoi npp : list){
+                
+                Object[] row ={
+                    npp.getMaNhaphanphoi(),npp.getTenNhaphanphoi(),npp.getSdt(),npp.getDiaChi(),npp.getEmail()
+                };
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void btnnewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnewActionPerformed
+        clear();
     }//GEN-LAST:event_btnnewActionPerformed
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
-      
+
         try {
-          if(check()){
-              this.insert();
-          }
+            if (checkEmail(txtemail.getText()) == false) {
+                JOptionPane.showMessageDialog(this, "Email không đúng định dạng");
+                txtemail.requestFocus();
+                return;
+            } else if (checkSDT(txtsdt.getText()) == false) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại sai định dạng");
+                txtsdt.requestFocus();
+                return;
+//            } else if (checkkitudacbiet(txthoten.getText()) == false) {
+//                JOptionPane.showMessageDialog(this, "Họ tên không được sử dụng ký tự đặc biệt");
+//                txthoten.requestFocus();
+//                return;
+            } else if (checkkitudacbiet(txtmaloaihang.getText()) == false) {
+                JOptionPane.showMessageDialog(this, "Mã không được sử dụng ký tự đặc biệt");
+                txtmaloaihang.requestFocus();
+                return;
+//            } else if (checkkitudacbiet(txtdiachi.getText()) == false) {
+//                JOptionPane.showMessageDialog(this, "Địa chỉ không được sử dụng ký tự đặc biệt");
+//                txtdiachi.requestFocus();
+//                return;
+
+            } else if (check() == true && checktrung(txtmaloaihang) == true) {
+
+                this.insert();
+
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnthemActionPerformed
 
+    private void tblshowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblshowMouseClicked
+        index = tblshow.getSelectedRow();
+        showdetail();
+
+    }//GEN-LAST:event_tblshowMouseClicked
+
+    private void btnxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoaActionPerformed
+        int question = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa không?");
+        if (question == JOptionPane.YES_OPTION) {
+            if (Auth.user.isVAITRO()) {
+                delete();
+
+            } else {
+
+                JOptionPane.showMessageDialog(this, "Bạn không có quyền xóa");
+            }
+        }
+    }//GEN-LAST:event_btnxoaActionPerformed
+
+    private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
+        // TODO add your handling code here:
+        update();
+    }//GEN-LAST:event_btnupdateActionPerformed
+
+    private void txttimkiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txttimkiemMouseClicked
+      
+    }//GEN-LAST:event_txttimkiemMouseClicked
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+timkiem();
+    }//GEN-LAST:event_btnSearchActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnnew;
     private javax.swing.JButton btnthem;
     private javax.swing.JButton btnupdate;
@@ -326,5 +589,6 @@ private boolean check(){
     private javax.swing.JTextField txthoten;
     private javax.swing.JTextField txtmaloaihang;
     private javax.swing.JTextField txtsdt;
+    private javax.swing.JTextField txttimkiem;
     // End of variables declaration//GEN-END:variables
 }

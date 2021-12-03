@@ -19,6 +19,7 @@ public class MainForrm extends javax.swing.JFrame {
      * Creates new form MainForrm
      */
     public MainForrm() {
+
 	initComponents();
 	setTitle("QUẢN LÝ BÁN HÀNG ĐIỆN TỦ GIA DỤNG");
 	init();
@@ -37,6 +38,7 @@ public class MainForrm extends javax.swing.JFrame {
     void dangxuat() {
 	Auth.clean();
 	new DangNhapJdiaLog(this, true).setVisible(true);
+
     }
 
     /**
@@ -178,6 +180,11 @@ public class MainForrm extends javax.swing.JFrame {
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5.setMargin(new java.awt.Insets(12, 30, 12, 30));
         jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton5);
 
         javax.swing.GroupLayout jPanel63Layout = new javax.swing.GroupLayout(jPanel63);
@@ -274,8 +281,9 @@ public class MainForrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+
 	// TODO add your handling code here:
-	dangxuat();
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
     public void openX(JInternalFrame x) {
 	for (JInternalFrame frmChild : jDesktopPane1.getAllFrames()) {
@@ -286,6 +294,8 @@ public class MainForrm extends javax.swing.JFrame {
 		(this.getHeight() - 20) / 2 - x.getHeight() / 2 - 60);
 	jDesktopPane1.add(x);
 	x.setVisible(true);
+
+	// TODO add your handling code here:
     }
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
 	// TODO add your handling code here:
@@ -306,17 +316,9 @@ public class MainForrm extends javax.swing.JFrame {
 	}
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-	// TODO add your handling code here:
-	if (Auth.islogin()) {
-	    findJdialog t = new findJdialog();
-	    openX(t);
-	} else {
-	    JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
-	}
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
 	// TODO add your handling code here:
 	if (Auth.islogin()) {
 	    SanPhamform sp = new SanPhamform();
@@ -326,15 +328,20 @@ public class MainForrm extends javax.swing.JFrame {
 	}
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+	// TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 	// TODO add your handling code here:
 	if (Auth.islogin()) {
-	    NhaPhanphoiJInternalFrame nha = new NhaPhanphoiJInternalFrame();
-	    openX(nha);
+	    TaikhoanJInternalFrame dao = new TaikhoanJInternalFrame();
+	    openX(dao);
 	} else {
 	    JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
 	}
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
 	// TODO add your handling code here:
@@ -343,6 +350,7 @@ public class MainForrm extends javax.swing.JFrame {
 	    return;
 	}
 	System.exit(0);
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -355,9 +363,41 @@ public class MainForrm extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+
 	// TODO add your handling code here:
-	dangxuat();
+	Auth.clean();
+	new DangNhapJdiaLog(this, true).setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+
+	if (Auth.islogin()) {
+	    findJdialog t = new findJdialog();
+	    openX(t);
+	} else {
+	    JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
+	}
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+	if (Auth.islogin()) {
+	    NhaPhanphoiJInternalFrame npp = new NhaPhanphoiJInternalFrame();
+	    openX(npp);
+	} else {
+	    JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
+	}
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+	// TODO add your handling code here:
+	if (Auth.islogin()) {
+	    ThongKeJInternalFrame tk = new ThongKeJInternalFrame();
+	    openX(tk);
+	} else {
+	    JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
+
+	}
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -424,5 +464,5 @@ public class MainForrm extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator9;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
-
 }
+

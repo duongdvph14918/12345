@@ -229,7 +229,11 @@ public class DangNhapJdiaLog extends javax.swing.JDialog {
 	    if (nhanvien != null) {
 		String matkhau = nhanvien.getMATKHAU();
 		if (pass.equals(matkhau)) {
+
 		    Auth.user = nhanvien;
+
+		
+
 		    JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
 		    this.dispose();
 		} else {
