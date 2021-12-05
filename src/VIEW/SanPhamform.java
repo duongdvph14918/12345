@@ -5,7 +5,13 @@
  */
 package VIEW;
 
+import DAO.LoaiHangDao;
+import DAO.NhaPhanPhoiDAO;
+import DAO.NhaSanXuatDAO;
 import DAO.SanPhamDAO;
+import MODEL.LoaiHang;
+import MODEL.NhaPhanPhoi;
+import MODEL.NhaSanXuat;
 import MODEL.NhanVien;
 import MODEL.SanPham;
 import Utils.Auth;
@@ -37,6 +43,8 @@ import org.openxmlformats.schemas.spreadsheetml.x2006.main.STItemType;
 public class SanPhamform extends javax.swing.JInternalFrame {
 
     SanPhamDAO dao = new SanPhamDAO();
+    NhaPhanPhoiDAO daonpp = new NhaPhanPhoiDAO();
+    NhaSanXuatDAO daonsx = new NhaSanXuatDAO();
     int index;
     JFileChooser filchoos = new JFileChooser();
     private boolean Add = false, Change = false;
@@ -87,7 +95,7 @@ public class SanPhamform extends javax.swing.JInternalFrame {
 	cbonhass.removeAllItems();
 	cbonhapp.removeAllItems();
 	txtmasanpham.setText(sp.getMASP());
-	txtténanpham.setText(sp.getTENSP());
+	txttensanpham.setText(sp.getTENSP());
 	cbomaloaiihang.addItem(sp.getMALH());
 	cbonhass.addItem(sp.getMANSX());
 	cbonhapp.addItem(sp.getMANHAPHANPHOI());
@@ -109,23 +117,33 @@ public class SanPhamform extends javax.swing.JInternalFrame {
     SanPham getform() {
 	SanPham sp = new SanPham();
 	sp.setMASP(txtmasanpham.getText());
-	sp.setTENSP(txtténanpham.getText());
+	sp.setTENSP(txttensanpham.getText());
 	sp.setMALH(cbomaloaiihang.getSelectedItem() + "");
 	sp.setMANSX(cbonhass.getSelectedItem() + "");
 	sp.setMANHAPHANPHOI(cbonhapp.getSelectedItem() + "");
 	sp.setSOLUONG(Integer.valueOf(txtsoluong.getText()));
 	sp.setDONGIA(Double.valueOf(txtdongia.getText()));
-	sp.setHINH(lblanh.getToolTipText()); //lấy tên hình
+	sp.setHINH(lblanh.getToolTipText()); // lấy tên hình
+//	SanPham sp = new SanPham();
+//	sp.setMASP(txtmasanpham.getText());
+//	sp.setTENSP(txtténanpham.getText());
+//	sp.setMALH(cbomaloaiihang.getSelectedItem() + "");
+//	sp.setMANSX(cbonhass.getSelectedItem() + "");
+//	sp.setMANHAPHANPHOI(cbonhapp.getSelectedItem() + "");
+//	sp.setSOLUONG(Integer.valueOf(txtsoluong.getText()));
+//	sp.setDONGIA(Double.valueOf(txtdongia.getText()));
+//	sp.setHINH(lblanh.getToolTipText()); //lấy tên hình
+//	return sp;
 	return sp;
     }
 
     public void showdetail() {
 	try {
-	    String masp = tblbang.getValueAt(index, 0).toString();
-	    SanPham model = dao.selectByID(masp);
-	    if (model != null) {
-		setform(model);
-	    }
+	 String sp = tblbang.getValueAt(index, 0).toString();
+	 SanPham model = dao.selectByID(sp);
+	 if(model != null){
+	     setform(model);
+	 }
 	    tblbang.setRowSelectionInterval(index, index);
 	} catch (Exception e) {
 	}
@@ -134,7 +152,7 @@ public class SanPhamform extends javax.swing.JInternalFrame {
     void chonanh() {
 	if (filchoos.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 	    File file = filchoos.getSelectedFile();
-	XImage.save(file);
+	    XImage.save(file);
 	    try {
 		// Hiển thị hình lên form
 		Image img = ImageIO.read(file);
@@ -151,8 +169,8 @@ public class SanPhamform extends javax.swing.JInternalFrame {
 	DefaultComboBoxModel model = (DefaultComboBoxModel) cbomaloaiihang.getModel();
 	model.removeAllElements();
 	try {
-	    List<SanPham> list = dao.selectAll();
-	    for (SanPham sp : list) {
+	    List<LoaiHang> list = dao.selectall1();
+	    for (LoaiHang sp : list) {
 		model.addElement(sp.getMALH());
 	    }
 	} catch (Exception e) {
@@ -163,9 +181,9 @@ public class SanPhamform extends javax.swing.JInternalFrame {
 	DefaultComboBoxModel model = (DefaultComboBoxModel) cbonhapp.getModel();
 	model.removeAllElements();
 	try {
-	    List<SanPham> list = dao.selectAll();
-	    for (SanPham sp : list) {
-		model.addElement(sp.getMANHAPHANPHOI());
+	    List<NhaPhanPhoi> list = daonpp.selectAll();
+	    for (NhaPhanPhoi sp : list) {
+		model.addElement(sp.getMaNhaphanphoi());
 	    }
 	} catch (Exception e) {
 	    e.printStackTrace();
@@ -176,8 +194,8 @@ public class SanPhamform extends javax.swing.JInternalFrame {
 	DefaultComboBoxModel model = (DefaultComboBoxModel) cbonhass.getModel();
 	model.removeAllElements();
 	try {
-	    List<SanPham> list = dao.selectAll();
-	    for (SanPham sp : list) {
+	    List<NhaSanXuat> list = daonsx.selectAll();
+	    for (NhaSanXuat sp : list) {
 		model.addElement(sp.getMANSX());
 	    }
 	} catch (Exception e) {
@@ -255,7 +273,7 @@ public class SanPhamform extends javax.swing.JInternalFrame {
 	txtdongia.setEnabled(true);
 	txtmasanpham.setEnabled(true);
 	txtsoluong.setEnabled(true);
-	txtténanpham.setEnabled(true);
+	txttensanpham.setEnabled(true);
 	cbomaloaiihang.setEnabled(true);
 	cbonhapp.setEnabled(true);
 	cbonhass.setEnabled(true);
@@ -272,7 +290,7 @@ public class SanPhamform extends javax.swing.JInternalFrame {
 	txtdongia.setEnabled(false);
 	txtmasanpham.setEnabled(false);
 	txtsoluong.setEnabled(false);
-	txtténanpham.setEnabled(false);
+	txttensanpham.setEnabled(false);
 	cbomaloaiihang.setEnabled(false);
 	cbonhapp.setEnabled(false);
 	cbonhass.setEnabled(false);
@@ -319,7 +337,7 @@ public class SanPhamform extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         txtmasanpham = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtténanpham = new javax.swing.JTextField();
+        txttensanpham = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -581,7 +599,7 @@ public class SanPhamform extends javax.swing.JInternalFrame {
                                                     .addGap(26, 26, 26)
                                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(txtmasanpham, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(txtténanpham, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                                        .addComponent(txttensanpham, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                         .addGroup(layout.createSequentialGroup()
                                             .addGap(66, 66, 66)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -653,7 +671,7 @@ public class SanPhamform extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(txtténanpham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txttensanpham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -743,8 +761,9 @@ public class SanPhamform extends javax.swing.JInternalFrame {
 	enanled();
 	Add = true;
 	loadmaloaihang();
-	loadnhapp();
 	loadnhasx();
+	loadnhapp();
+	
 	btnthem.setEnabled(false);
 	btnluu.setEnabled(true);
 
@@ -784,8 +803,9 @@ public class SanPhamform extends javax.swing.JInternalFrame {
 
 	enanled();
 	loadmaloaihang();
-	loadnhapp();
 	loadnhasx();
+	loadnhapp();
+	
 	btnthem.setEnabled(false);
 	btnsua.setEnabled(false);
 	btnxoa.setEnabled(false);
@@ -808,7 +828,7 @@ public class SanPhamform extends javax.swing.JInternalFrame {
 
 	if (Add == true) {
 	    if (utilityHelper.checknull(txtmasanpham)
-		    && utilityHelper.checknull(txtténanpham)
+		    && utilityHelper.checknull(txttensanpham)
 		    && utilityHelper.checknull(txtsoluong)
 		    && utilityHelper.checknull(txtdongia)
 		    && hinh()) {
@@ -823,7 +843,7 @@ public class SanPhamform extends javax.swing.JInternalFrame {
 	    }
 	} else if (Change == true) {
 	    if (utilityHelper.checknull(txtmasanpham)
-		    && utilityHelper.checknull(txtténanpham)
+		    && utilityHelper.checknull(txttensanpham)
 		    && utilityHelper.checknull(txtsoluong)
 		    && utilityHelper.checknull(txtdongia)) {
 		if (utilityHelper.checkma(txtmasanpham)
@@ -878,7 +898,7 @@ public class SanPhamform extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtdongia;
     private javax.swing.JTextField txtmasanpham;
     private javax.swing.JTextField txtsoluong;
+    private javax.swing.JTextField txttensanpham;
     private javax.swing.JTextField txttimkiem;
-    private javax.swing.JTextField txtténanpham;
     // End of variables declaration//GEN-END:variables
 }

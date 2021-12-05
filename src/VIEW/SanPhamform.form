@@ -51,7 +51,7 @@
                                                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Component id="txtmasanpham" min="-2" pref="296" max="-2" attributes="0"/>
-                                                      <Component id="txtténanpham" min="-2" pref="296" max="-2" attributes="0"/>
+                                                      <Component id="txttensanpham" min="-2" pref="296" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
@@ -148,7 +148,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtténanpham" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txttensanpham" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -312,7 +312,7 @@
         <Property name="text" type="java.lang.String" value="T&#xea;n s&#x1ea3;n ph&#x1ea9;m"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtt&#xe9;nanpham">
+    <Component class="javax.swing.JTextField" name="txttensanpham">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>

@@ -198,7 +198,7 @@ public class DangNhapJdiaLog extends javax.swing.JDialog {
 	if (chk.isSelected()) {
 	    txtpas.setEchoChar((char) 0);
 	} else {
-//	    txtpas.setEchoChar('*');
+	    txtpas.setEchoChar('*');
 	}
     }//GEN-LAST:event_chkMouseClicked
 
@@ -229,11 +229,7 @@ public class DangNhapJdiaLog extends javax.swing.JDialog {
 	    if (nhanvien != null) {
 		String matkhau = nhanvien.getMATKHAU();
 		if (pass.equals(matkhau)) {
-
 		    Auth.user = nhanvien;
-
-		
-
 		    JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
 		    this.dispose();
 		} else {
