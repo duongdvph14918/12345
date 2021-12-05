@@ -24,12 +24,11 @@ import MODEL.NhanVien;
  */
 public class NhanVienDAO extends EduSysDAO<NhanVien, String> {
     
-    String select_update = "update NhanVien set HoTen =? , DIENTHOAI =? , VAITRO =? where MANV =?";
-    String select_insert = "insert into NHANVIEN (MANV , HOTEN , DIENTHOAI, VAITRO) values (?,?,?,?)";
+    String select_update = "update NHANVIEN set HOTEN =? ,GIOITINH=?, DIENTHOAI =? ,EMAIL=?,MATKHAU=?, VAITRO =? where MANV =?";
+    String select_insert = "insert into NHANVIEN (MANV , HOTEN ,GIOITINH, DIENTHOAI,EMAIL,MATKHAU, VAITRO) values (?,?,?,?,?,?,?)";
     String delete_sql = "delete from NHANVIEN where MANV =?";
     String SELECT_ALL_SQL = "select * from NHANVIEN";
     String SELECT_BY_ID_SQL = "select * from NHANVIEN where MANV = ?";
-    
     public void updatemk(NhanVien entity) {
 	String sql = "UPDATE NHANVIEN set MATKHAU =? where MANV =?";
 	hepper.update(sql,
@@ -41,9 +40,12 @@ public class NhanVienDAO extends EduSysDAO<NhanVien, String> {
     public void insert(NhanVien entity) {
 	try {
 	    hepper.update(select_insert,
-		    entity.getMANV(),
+                    entity.getMANV(),
 		    entity.getHOTEN(),
+                    entity.isGIOITINH(),
 		    entity.getDIENTHOAI(),
+                    entity.getEMAIL(),
+                    entity.getMATKHAU(),
 		    entity.isVAITRO());
 	} catch (Exception e) {
 	    e.printStackTrace();
@@ -54,12 +56,23 @@ public class NhanVienDAO extends EduSysDAO<NhanVien, String> {
     public void update(NhanVien entity) {
 	hepper.update(select_update,
 		entity.getHOTEN(),
+                entity.isGIOITINH(),
 		entity.getDIENTHOAI(),
 		entity.isVAITRO(),
 		entity.getMANV());
 	
     }
-    
+    public void updateNV(NhanVien nv){
+        String sql = "update NHANVIEN set HOTEN =?, GIOITINH =?,DIENTHOAI=?,EMAIL=?,MATKHAU=?,VAITRO=? WHERE MANV =?";
+        hepper.update(sql,
+                nv.getHOTEN(),
+                nv.isGIOITINH(),
+                nv.getDIENTHOAI(),
+                nv.getEMAIL(),
+                nv.getMATKHAU(),
+                nv.isVAITRO(),
+                nv.getMANV());
+    }
     @Override
     public void delete(String id) {
 	hepper.update(delete_sql, id);
@@ -102,7 +115,20 @@ public class NhanVienDAO extends EduSysDAO<NhanVien, String> {
 	return list.get(0);
     }
         public List<NhanVien> selectByKeyword(String keyword) {
-       String sql ="select * from NHANVIEN where MANV like  ?% ";
+       String sql ="select * from NHANVIEN where MANV like N ? ";
         return this.selectBySQL(sql, "%" + keyword + "%");
     }
+    public List<NhanVien> selectByEmail(String email){
+        String sql = "select * from NHANVIEN where EMAIL LIKE ?";
+        return selectBySQL(sql, "%" + email +"%");
+    }
+    public List<NhanVien> selectByMa(String ma){
+        String sql = "select * from NHANVIEN where MANV LIKE ?";
+        return selectBySQL(sql, "%" + ma +"%");
+    }
+    public List<NhanVien> selectByName(String name){
+        String sql = "select * from NHANVIEN where HOTEN LIKE ?";
+        return selectBySQL(sql, "%" + name +"%");
+    }
+    
 }
