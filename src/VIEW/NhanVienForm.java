@@ -399,8 +399,11 @@ public class NhanVienForm extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
-
-        this.search();
+        if(txtTim.getText().equals("")){
+        this.fillTB();
+    }else{
+            this.search();
+        }
     }//GEN-LAST:event_btnTimActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
@@ -517,7 +520,37 @@ public class NhanVienForm extends javax.swing.JInternalFrame {
         try {
                String key = txtTim.getText();
                List<NhanVien> list = nvDao.selectByMa(key);
+               List<NhanVien> list0 =nvDao.selectByEmail(key);
+               List<NhanVien> list1 = nvDao.selectByName(key);
                for(NhanVien nv : list){
+                   Object[] row = {
+                   nv.getMANV(),
+                   nv.getHOTEN(),
+                   nv.isGIOITINH() ? "Nam" : "Nữ",
+                   nv.getDIENTHOAI(),
+                   nv.getEMAIL(),
+                   nv.getMATKHAU(),
+                   nv.isVAITRO() ? "Quản Lý" : "Nhân Viên"
+                   };
+                   model.addRow(row);
+                   return;
+               }
+               //model.setRowCount(0);
+               for(NhanVien nv : list0){
+                   Object[] row = {
+                   nv.getMANV(),
+                   nv.getHOTEN(),
+                   nv.isGIOITINH() ? "Nam" : "Nữ",
+                   nv.getDIENTHOAI(),
+                   nv.getEMAIL(),
+                   nv.getMATKHAU(),
+                   nv.isVAITRO() ? "Quản Lý" : "Nhân Viên"
+                   };
+                   model.addRow(row);
+                   return;
+               }
+           //    model.setRowCount(0);
+               for(NhanVien nv : list1){
                    Object[] row = {
                    nv.getMANV(),
                    nv.getHOTEN(),
