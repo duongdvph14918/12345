@@ -255,7 +255,7 @@ void thongke(){
 //                    cell = row.createCell(4,CellType.STRING);
 //            cell.setCellValue(bh.getNhanvien());
         }
-        File f = new File("E:\\thongke.xlsx");
+        File f = new File("D:\\thongke.xlsx");
             FileOutputStream fos =new FileOutputStream(f);
             workbook.write(fos);
             fos.close();

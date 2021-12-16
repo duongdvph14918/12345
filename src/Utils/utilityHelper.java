@@ -63,7 +63,7 @@ public class utilityHelper {
 	    return true;
 	} else {
 	    txt.setBackground(pink);
-	    JOptionPane.showMessageDialog(txt.getRootPane(), txt.getName() + " phải gồm 10 số.");
+	    JOptionPane.showMessageDialog(txt.getRootPane(), txt.getName() + " phải gồm 10 số và các số nhà mạng 086,096 ,085 , 081 ....");
 	    return false;
 	}
     }

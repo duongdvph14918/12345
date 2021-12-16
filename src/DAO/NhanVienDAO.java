@@ -126,6 +126,10 @@ public class NhanVienDAO extends EduSysDAO<NhanVien, String> {
         String sql = "select * from NHANVIEN where MANV LIKE ?";
         return selectBySQL(sql, "%" + ma +"%");
     }
+        public List<NhanVien> selectByMa1(String key){
+        String sql = "select * from NHANVIEN where MANV LIKE ? or HOTEN like ?";
+        return selectBySQL(sql, "%" + key +"%","%" + key +"%");
+    }
     public List<NhanVien> selectByName(String name){
         String sql = "select * from NHANVIEN where HOTEN LIKE ?";
         return selectBySQL(sql, "%" + name +"%");
