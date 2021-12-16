@@ -21,14 +21,15 @@ import java.util.ArrayList;
  * @author admin
  */
 public class NhanVienForm extends javax.swing.JInternalFrame {
+
     NhanVienDAO nvDao = new NhanVienDAO();
-    int index=0;
-    
+    int index = 0;
+
     /**
      * Creates new form NhanVienForm
      */
     public NhanVienForm() {
-        initComponents();
+	initComponents();
     }
 
     /**
@@ -374,268 +375,277 @@ public class NhanVienForm extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setSTT(boolean insertable){
-        boolean first = this.index>0;
-        boolean last = this.index < tblShow.getRowCount() -1;
-        btnDau.setEnabled(!insertable && first);
-        btnPre.setEnabled(!insertable && first);
-        btnNext.setEnabled(!insertable && last);
-        btnCuoi.setEnabled(!insertable && last);
+    public void setSTT(boolean insertable) {
+	boolean first = this.index > 0;
+	boolean last = this.index < tblShow.getRowCount() - 1;
+	btnDau.setEnabled(!insertable && first);
+	btnPre.setEnabled(!insertable && first);
+	btnNext.setEnabled(!insertable && last);
+	btnCuoi.setEnabled(!insertable && last);
     }
-    public void display(){
-        try {
-            String ma = (String) tblShow.getValueAt(this.index, 0);
-            NhanVien nv = nvDao.selectByID(ma);
-            if(nv != null){
-                this.setModel(nv);
-                this.setSTT(false);
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            DialogHelper.alert(this,"Lỗi truy vấn dữ liệu !!!"+e);
-        }
+
+    public void display() {
+	try {
+	    String ma = (String) tblShow.getValueAt(this.index, 0);
+	    NhanVien nv = nvDao.selectByID(ma);
+	    if (nv != null) {
+		this.setModel(nv);
+		this.setSTT(false);
+	    }
+	} catch (ArrayIndexOutOfBoundsException e) {
+	    DialogHelper.alert(this, "Lỗi truy vấn dữ liệu !!!" + e);
+	}
     }
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        this.fillTB();
+	this.fillTB();
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
-        if(txtTim.getText().equals("")){
-        this.fillTB();
-    }else{
-            this.search();
-        }
+
+	fillTB();
+
+	if (txtTim.getText().equals("")) {
+	    this.fillTB();
+	} else {
+	    this.search();
+	}
     }//GEN-LAST:event_btnTimActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
-        if(utilityHelper.checknull(txtMaNV)
-                && utilityHelper.checknull(txtHoten)
-                && utilityHelper.checknull(txtMail)
-                && utilityHelper.checknull(txtMatKhau)
-                && utilityHelper.checknull(txtSDT)){
-            if(utilityHelper.checkma(txtMaNV)
-                    && utilityHelper.checkSDT(txtSDT)
-                    && utilityHelper.checkEmail(txtMail)
-                    && utilityHelper.checkpass(txtMatKhau)){
-                this.insert();
-            }
-            
-        }
-            
+	// TODO add your handling code here:
+	if (utilityHelper.checknull(txtMaNV)
+		&& utilityHelper.checknull(txtHoten)
+		&& utilityHelper.checknull(txtMail)
+		&& utilityHelper.checknull(txtMatKhau)
+		&& utilityHelper.checknull(txtSDT)) {
+	    if (utilityHelper.checkma(txtMaNV)
+		    && utilityHelper.checkSDT(txtSDT)
+		    && utilityHelper.checkEmail(txtMail)
+		    && utilityHelper.checkpass(txtMatKhau)) {
+		this.insert();
+	    }
+
+	}
+
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void rdoNuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoNuActionPerformed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_rdoNuActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        // TODO add your handling code here:
-        clear();
+	// TODO add your handling code here:
+	clear();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void tblShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblShowMouseClicked
-        // TODO add your handling code here:
-        if(evt.getClickCount()==2){
-            this.index = tblShow.rowAtPoint(evt.getPoint());
-            if(index >=0){
-                this.display();
-            }
-        }
+	// TODO add your handling code here:
+	if (evt.getClickCount() == 2) {
+	    this.index = tblShow.rowAtPoint(evt.getPoint());
+	    if (index >= 0) {
+		this.display();
+	    }
+	}
     }//GEN-LAST:event_tblShowMouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // TODO add your handling code here:
-        if(Auth.user.isVAITRO()){
-            this.delete();
-        }else{
-            DialogHelper.alert(this,"Chức năng này chỉ dành cho quản lý. Cảm ơn !!!");
-        }
+	// TODO add your handling code here:
+	if (Auth.user.isVAITRO()) {
+	    this.delete();
+	} else {
+	    DialogHelper.alert(this, "Chức năng này chỉ dành cho quản lý. Cảm ơn !!!");
+	}
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        // TODO add your handling code here:
-        if(utilityHelper.checknull(txtMaNV)
-                && utilityHelper.checknull(txtHoten)
-                && utilityHelper.checknull(txtMail)
-                && utilityHelper.checknull(txtMatKhau)
-                && utilityHelper.checknull(txtSDT)){
-            if( utilityHelper.checkSDT(txtSDT)
-                    && utilityHelper.checkEmail(txtMail)
-                    && utilityHelper.checkpass(txtMatKhau)){
-                this.update();
-            }
-            
-        }
+	// TODO add your handling code here:
+	if (utilityHelper.checknull(txtMaNV)
+		&& utilityHelper.checknull(txtHoten)
+		&& utilityHelper.checknull(txtMail)
+		&& utilityHelper.checknull(txtMatKhau)
+		&& utilityHelper.checknull(txtSDT)) {
+	    if (utilityHelper.checkSDT(txtSDT)
+		    && utilityHelper.checkEmail(txtMail)
+		    && utilityHelper.checkpass(txtMatKhau)) {
+		this.update();
+	    }
+
+	}
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnDauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDauActionPerformed
-        // TODO add your handling code here:
-        this.index = 0;
-        this.display();
+	// TODO add your handling code here:
+	this.index = 0;
+	this.display();
     }//GEN-LAST:event_btnDauActionPerformed
 
     private void btnPreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreActionPerformed
-        // TODO add your handling code here:
-        this.index--;
-        this.display();
+	// TODO add your handling code here:
+	this.index--;
+	this.display();
     }//GEN-LAST:event_btnPreActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        // TODO add your handling code here:
-        this.index++;
-        this.display();
+	// TODO add your handling code here:
+	this.index++;
+	this.display();
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void btnCuoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuoiActionPerformed
-        // TODO add your handling code here:
-        this.index = tblShow.getRowCount()-1;
-        this.display();
+	// TODO add your handling code here:
+	this.index = tblShow.getRowCount() - 1;
+	this.display();
     }//GEN-LAST:event_btnCuoiActionPerformed
 
-    public void fillTB(){
-        DefaultTableModel model = (DefaultTableModel) tblShow.getModel();
-        model.setRowCount(0);
-        try {
-               String key = txtTim.getText();
-               List<NhanVien> list = nvDao.selectAll();
-               for(NhanVien nv : list){
-                   Object[] row = {
-                   nv.getMANV(),
-                   nv.getHOTEN(),
-                   nv.isGIOITINH() ? "Nam" : "Nữ",
-                   nv.getDIENTHOAI(),
-                   nv.getEMAIL(),
-                   nv.getMATKHAU(),
-                   nv.isVAITRO() ? "Quản Lý" : "Nhân Viên"
-                   };
-                   model.addRow(row);
-               }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void fillTB() {
+	DefaultTableModel model = (DefaultTableModel) tblShow.getModel();
+	model.setRowCount(0);
+	try {
+	    String key = txtTim.getText();
+	    List<NhanVien> list = nvDao.selectByMa1(key);
+	    for (NhanVien nv : list) {
+		Object[] row = {
+		    nv.getMANV(),
+		    nv.getHOTEN(),
+		    nv.isGIOITINH() ? "Nam" : "Nữ",
+		    nv.getDIENTHOAI(),
+		    nv.getEMAIL(),
+		    nv.getMATKHAU(),
+		    nv.isVAITRO() ? "Quản Lý" : "Nhân Viên"
+		};
+		model.addRow(row);
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
     }
-    public void search(){
-        DefaultTableModel model = (DefaultTableModel) tblShow.getModel();
-        model.setRowCount(0);
-        try {
-               String key = txtTim.getText();
-               List<NhanVien> list = nvDao.selectByMa(key);
-               List<NhanVien> list0 =nvDao.selectByEmail(key);
-               List<NhanVien> list1 = nvDao.selectByName(key);
-               for(NhanVien nv : list){
-                   Object[] row = {
-                   nv.getMANV(),
-                   nv.getHOTEN(),
-                   nv.isGIOITINH() ? "Nam" : "Nữ",
-                   nv.getDIENTHOAI(),
-                   nv.getEMAIL(),
-                   nv.getMATKHAU(),
-                   nv.isVAITRO() ? "Quản Lý" : "Nhân Viên"
-                   };
-                   model.addRow(row);
-                   return;
-               }
-               //model.setRowCount(0);
-               for(NhanVien nv : list0){
-                   Object[] row = {
-                   nv.getMANV(),
-                   nv.getHOTEN(),
-                   nv.isGIOITINH() ? "Nam" : "Nữ",
-                   nv.getDIENTHOAI(),
-                   nv.getEMAIL(),
-                   nv.getMATKHAU(),
-                   nv.isVAITRO() ? "Quản Lý" : "Nhân Viên"
-                   };
-                   model.addRow(row);
-                   return;
-               }
-           //    model.setRowCount(0);
-               for(NhanVien nv : list1){
-                   Object[] row = {
-                   nv.getMANV(),
-                   nv.getHOTEN(),
-                   nv.isGIOITINH() ? "Nam" : "Nữ",
-                   nv.getDIENTHOAI(),
-                   nv.getEMAIL(),
-                   nv.getMATKHAU(),
-                   nv.isVAITRO() ? "Quản Lý" : "Nhân Viên"
-                   };
-                   model.addRow(row);
-               }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+    public void search() {
+	DefaultTableModel model = (DefaultTableModel) tblShow.getModel();
+	model.setRowCount(0);
+	try {
+	    String key = txtTim.getText();
+	    List<NhanVien> list = nvDao.selectByMa(key);
+	    List<NhanVien> list0 = nvDao.selectByEmail(key);
+	    List<NhanVien> list1 = nvDao.selectByName(key);
+	    for (NhanVien nv : list) {
+		Object[] row = {
+		    nv.getMANV(),
+		    nv.getHOTEN(),
+		    nv.isGIOITINH() ? "Nam" : "Nữ",
+		    nv.getDIENTHOAI(),
+		    nv.getEMAIL(),
+		    nv.getMATKHAU(),
+		    nv.isVAITRO() ? "Quản Lý" : "Nhân Viên"
+		};
+		model.addRow(row);
+		return;
+	    }
+	    //model.setRowCount(0);
+	    for (NhanVien nv : list0) {
+		Object[] row = {
+		    nv.getMANV(),
+		    nv.getHOTEN(),
+		    nv.isGIOITINH() ? "Nam" : "Nữ",
+		    nv.getDIENTHOAI(),
+		    nv.getEMAIL(),
+		    nv.getMATKHAU(),
+		    nv.isVAITRO() ? "Quản Lý" : "Nhân Viên"
+		};
+		model.addRow(row);
+		return;
+	    }
+	    //    model.setRowCount(0);
+	    for (NhanVien nv : list1) {
+		Object[] row = {
+		    nv.getMANV(),
+		    nv.getHOTEN(),
+		    nv.isGIOITINH() ? "Nam" : "Nữ",
+		    nv.getDIENTHOAI(),
+		    nv.getEMAIL(),
+		    nv.getMATKHAU(),
+		    nv.isVAITRO() ? "Quản Lý" : "Nhân Viên"
+		};
+		model.addRow(row);
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
     }
-    
-    
-    public void setModel(NhanVien nv){
-        txtMaNV.setText(nv.getMANV());
-        txtHoten.setText(nv.getHOTEN());
-        rdoNam.setSelected(nv.isGIOITINH());
-        rdoNu.setSelected(!nv.isGIOITINH());
-        txtSDT.setText(nv.getDIENTHOAI());
-        txtMail.setText(nv.getEMAIL());
-        txtMatKhau.setText(nv.getMATKHAU());
-        rdoNhanVien.setSelected(!nv.isVAITRO());
-        rdoQuanLy.setSelected(nv.isVAITRO());
+
+    public void setModel(NhanVien nv) {
+	txtMaNV.setText(nv.getMANV());
+	txtHoten.setText(nv.getHOTEN());
+	rdoNam.setSelected(nv.isGIOITINH());
+	rdoNu.setSelected(!nv.isGIOITINH());
+	txtSDT.setText(nv.getDIENTHOAI());
+	txtMail.setText(nv.getEMAIL());
+	txtMatKhau.setText(nv.getMATKHAU());
+	rdoNhanVien.setSelected(!nv.isVAITRO());
+	rdoQuanLy.setSelected(nv.isVAITRO());
     }
-    NhanVien getModel(){
-        NhanVien nv = new NhanVien();
-        nv.setMANV(txtMaNV.getText());
-        nv.setHOTEN(txtHoten.getText());
-        nv.setGIOITINH(rdoNam.isSelected());
-        nv.setDIENTHOAI(txtSDT.getText());
-        nv.setEMAIL(txtMail.getText());
-        nv.setMATKHAU(new String(txtMatKhau.getPassword()));
-        nv.setVAITRO(rdoQuanLy.isSelected());
-        return nv;
+
+    NhanVien getModel() {
+	NhanVien nv = new NhanVien();
+	nv.setMANV(txtMaNV.getText());
+	nv.setHOTEN(txtHoten.getText());
+	nv.setGIOITINH(rdoNam.isSelected());
+	nv.setDIENTHOAI(txtSDT.getText());
+	nv.setEMAIL(txtMail.getText());
+	nv.setMATKHAU(new String(txtMatKhau.getPassword()));
+	nv.setVAITRO(rdoQuanLy.isSelected());
+	return nv;
     }
-    public void clear(){
-        txtMaNV.setText("");
-        txtHoten.setText("");
-        rdoNam.setSelected(false);
-        rdoNu.setSelected(false);
-        txtSDT.setText("");
-        txtMail.setText("");
-        txtMatKhau.setText("");
-        rdoQuanLy.setSelected(false);
-        rdoNhanVien.setSelected(false);
+
+    public void clear() {
+	txtMaNV.setText("");
+	txtHoten.setText("");
+	rdoNam.setSelected(false);
+	rdoNu.setSelected(false);
+	txtSDT.setText("");
+	txtMail.setText("");
+	txtMatKhau.setText("");
+	rdoQuanLy.setSelected(false);
+	rdoNhanVien.setSelected(false);
     }
-    public void insert(){
-        NhanVien nv = getModel();
-        try {
-            nvDao.insert(nv);
-            this.fillTB();
-            DialogHelper.alert(this, "Đã Thêm Nhân Viên Có Mã " +txtMaNV.getText());
-            this.clear();
-        } catch (Exception e) {
-            DialogHelper.alert(this, "Thêm Thất Bại !!!");
-        }
+
+    public void insert() {
+	NhanVien nv = getModel();
+	try {
+	    nvDao.insert(nv);
+	    this.fillTB();
+	    DialogHelper.alert(this, "Đã Thêm Nhân Viên Có Mã " + txtMaNV.getText());
+	    this.clear();
+	} catch (Exception e) {
+	    DialogHelper.alert(this, "Thêm Thất Bại !!!");
+	}
     }
-    public void delete(){
-        if(DialogHelper.confirm(this, "Bạn muốn xóa nhân viên "+ txtMaNV.getText()+" chứ ?" )){
-            String ma = txtMaNV.getText();
-            try {
-                nvDao.delete(ma);
-                this.fillTB();
-                this.clear();
-                DialogHelper.alert(this, "Đã xóa");
-            } catch (Exception e) {
-                DialogHelper.alert(this, "Thất bại !!!");
-            }
-        }
+
+    public void delete() {
+	if (DialogHelper.confirm(this, "Bạn muốn xóa nhân viên " + txtMaNV.getText() + " chứ ?")) {
+	    String ma = txtMaNV.getText();
+	    try {
+		nvDao.delete(ma);
+		this.fillTB();
+		this.clear();
+		DialogHelper.alert(this, "Đã xóa");
+	    } catch (Exception e) {
+		DialogHelper.alert(this, "Thất bại !!!");
+	    }
+	}
     }
-    public void update(){
-        NhanVien nv = getModel();
-        try {
-            nvDao.updateNV(nv);
-            this.fillTB();
-            DialogHelper.alert(this, "Đã cập nhật");
-        } catch (Exception e) {
-            DialogHelper.alert(this, "Thất bại !!!");
-        }
+
+    public void update() {
+	NhanVien nv = getModel();
+	try {
+	    nvDao.updateNV(nv);
+	    this.fillTB();
+	    DialogHelper.alert(this, "Đã cập nhật");
+	} catch (Exception e) {
+	    DialogHelper.alert(this, "Thất bại !!!");
+	}
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCuoi;

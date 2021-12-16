@@ -123,17 +123,8 @@ public class SanPhamform extends javax.swing.JInternalFrame {
 	sp.setMANHAPHANPHOI(cbonhapp.getSelectedItem() + "");
 	sp.setSOLUONG(Integer.valueOf(txtsoluong.getText()));
 	sp.setDONGIA(Double.valueOf(txtdongia.getText()));
-	sp.setHINH(lblanh.getToolTipText()); // lấy tên hình
-//	SanPham sp = new SanPham();
-//	sp.setMASP(txtmasanpham.getText());
-//	sp.setTENSP(txtténanpham.getText());
-//	sp.setMALH(cbomaloaiihang.getSelectedItem() + "");
-//	sp.setMANSX(cbonhass.getSelectedItem() + "");
-//	sp.setMANHAPHANPHOI(cbonhapp.getSelectedItem() + "");
-//	sp.setSOLUONG(Integer.valueOf(txtsoluong.getText()));
-//	sp.setDONGIA(Double.valueOf(txtdongia.getText()));
-//	sp.setHINH(lblanh.getToolTipText()); //lấy tên hình
-//	return sp;
+	sp.setHINH(lblanh.getToolTipText()); 
+
 	return sp;
     }
 
