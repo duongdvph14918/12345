@@ -300,18 +300,7 @@ public class MainForrm extends javax.swing.JFrame {
 	// TODO add your handling code here:
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-    public void openX(JInternalFrame x) {
-	for (JInternalFrame frmChild : jDesktopPane1.getAllFrames()) {
-	    frmChild.dispose();
-	}
 
-	x.setLocation(this.getWidth() / 2 - x.getWidth() / 2,
-		(this.getHeight() - 20) / 2 - x.getHeight() / 2 - 60);
-	jDesktopPane1.add(x);
-	x.setVisible(true);
-
-	// TODO add your handling code here:
-    }
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
 	// TODO add your handling code here:
 	new DangNhapJdiaLog(this, true).setVisible(true);
@@ -319,11 +308,7 @@ public class MainForrm extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
 	// TODO add your handling code here:
-//	if (Auth.islogin()) {
-//	    new DoiMatKhauJdiaLog(this, true).setVisible(true);
-//	} else {
-//	    JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
-//	}
+
 	if (Auth.islogin()) {
 	    new DoimatkhaujdiaLog(this, true).setVisible(true);
 	} else {
@@ -346,7 +331,9 @@ public class MainForrm extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 	// TODO add your handling code here:
         if (Auth.islogin()) {
-	    new QLBanHangjdiaLog(this, true).setVisible(true);
+	      new QuanLyBanhangJframe()
+	    .setVisible(true);
+			
 	} else {
 	    JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
 	}
@@ -493,8 +480,15 @@ public class MainForrm extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 
-    private void openX(QLBanHangjdiaLog qlbh) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      public void openX(JInternalFrame x) {
+	for (JInternalFrame frmChild : jDesktopPane1.getAllFrames()) {
+	    frmChild.dispose();
+	}
+
+	x.setLocation(this.getWidth() / 2 - x.getWidth() / 2,
+		(this.getHeight() - 20) / 2 - x.getHeight() / 2 - 60);
+	jDesktopPane1.add(x);
+	x.setVisible(true);
     }
 }
 

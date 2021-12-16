@@ -19,6 +19,8 @@ public class jdlAddSanPham extends javax.swing.JDialog {
         initComponents();
     }
 
+
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -99,14 +101,14 @@ public class jdlAddSanPham extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonActionPerformed
-        QLBanHangjdiaLog.SOLUONG =  Integer.parseInt(spnSoLuong.getValue().toString());
+        QuanLyBanhangJframe.SOLUONG =  Integer.parseInt(spnSoLuong.getValue().toString());
         this.dispose();
     }//GEN-LAST:event_btnChonActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        txtMaSP.setText(QLBanHangjdiaLog.MASP );
-        spnSoLuong.setModel(new javax.swing.SpinnerNumberModel(1, 1, QLBanHangjdiaLog.SOLUONG, 1));
+        txtMaSP.setText(QuanLyBanhangJframe.MASP );
+        spnSoLuong.setModel(new javax.swing.SpinnerNumberModel(1, 1, QuanLyBanhangJframe.SOLUONG, 1));
     }//GEN-LAST:event_formWindowOpened
 
     /**
