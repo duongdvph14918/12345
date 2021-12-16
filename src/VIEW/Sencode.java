@@ -141,7 +141,7 @@ public class Sencode extends javax.swing.JFrame {
 	// TODO add your handling code here:
 	try {
 	    Random random = new Random();
-	    this.randumCode = random.nextInt(999999);//tạo 1 số ngẫu nhiên từ 0 đến 999999
+	    this.randumCode = random.nextInt(999999);
 	    String host = "smtp.gmail.com";
 	    String user = "duongdo170201@gmail.com";
 	    String pass = "Anhduong2k1";
