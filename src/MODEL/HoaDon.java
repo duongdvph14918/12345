@@ -58,8 +58,15 @@ public class HoaDon {
     public void setDongia(Float Dongia) {
         this.Dongia = Dongia;
     }
+<<<<<<< HEAD
+
+    public void setManv(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+=======
     
     
+>>>>>>> 9872e27db75803c4aee0124b98a99270d3721ee6
     
     
 }
