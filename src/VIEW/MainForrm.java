@@ -120,6 +120,11 @@ public class MainForrm extends javax.swing.JFrame {
         jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton6.setMargin(new java.awt.Insets(12, 30, 12, 30));
         jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton6);
         jToolBar1.add(jSeparator5);
 
@@ -335,7 +340,7 @@ public class MainForrm extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 	// TODO add your handling code here:
 	if (Auth.islogin()) {
-	    TaikhoanJInternalFrame dao = new TaikhoanJInternalFrame();
+	    NhanVienForm dao = new NhanVienForm();
 	    openX(dao);
 	} else {
 	    JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
