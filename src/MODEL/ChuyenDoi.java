@@ -18,7 +18,6 @@ public class ChuyenDoi {
         try {
             return NumberFormat.getNumberInstance().parse(tien).doubleValue();
         } catch (ParseException ex) {
-//            GUI.frmHeThong.ThongBao("Thông báo", "Lỗi chuyển dữ liệu");
 
         }
         return 0;
