@@ -8,6 +8,7 @@ package VIEW;
 import DAO.SanPhamDAO;
 import MODEL.ChuyenDoi;
 import MODEL.SanPham;
+import Utils.utilityHelper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -220,11 +221,12 @@ public class QuanLyBanhangJframe extends javax.swing.JFrame {
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         if (tblHoaDon.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Chưa chọn sản phẩm!");
-        } else {
+        } if(utilityHelper.checknull(txtMaHD)) {
+            
             JOptionPane.showMessageDialog(this, "Thanh toán thành công!");
            DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
             model.setRowCount(0);
-            
+           
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
